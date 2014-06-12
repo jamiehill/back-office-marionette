@@ -30,7 +30,6 @@ require.config({
 });
 
 // Kick off the main application
-require(['app'], function(App){
-    var app = new App();
+require(['app'], function(app){
     app.start();
 })

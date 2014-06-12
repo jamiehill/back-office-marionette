@@ -1,5 +1,5 @@
 // Main Marionette application module, exports application instance to the outside world
-define(['bootstrap/DeferredBase'],
+define(['common/bootstrap/core/DeferredBase'],
     function(DeferredBase) {
     return DeferredBase.extend({
         name: 'DummyDeferred',

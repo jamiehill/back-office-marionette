@@ -1,6 +1,5 @@
 define(function(require) {
-    var DeferredBase = require('bootstrap/DeferredBase'),
-        App = require('App');
+    var DeferredBase = require('common/bootstrap/core/DeferredBase')
 
     return DeferredBase.extend({
         name: 'UrlResolver',

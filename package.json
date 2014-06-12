@@ -1,0 +1,11 @@
+{
+  "name": "BackOffice",
+  "version": "0.0.0",
+  "description": "Ats BackOffice Client Marionette Node",
+  "main": "/src/js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "James Hill <http://blog.tiltdigital.com>",
+  "license": "ISC"
+}

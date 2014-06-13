@@ -6,6 +6,7 @@ define(function (require) {
         url: App.endpoint,
         targets: {
             'login': 'post',
+            'login': { method:'post', args:['username','password'] },
             'keepAlive': 'get',
 
             'getEvent': 'get',
@@ -38,6 +39,11 @@ define(function (require) {
             'uploadSelectionTypeTranslationsCSV': 'post',
 
             'locales': 'post'
+        },
+
+
+        target: function(){
+
         }
 
     });

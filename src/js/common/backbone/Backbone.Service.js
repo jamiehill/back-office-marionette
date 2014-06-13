@@ -18,61 +18,6 @@ function(_, Backbone) {
         return result;
     };
 
-    // simple promise implementation
-    function Promise(context) {
-        this.context = context || this;
-        this.success = [];
-        this.error = [];
-    }
-
-    Promise.prototype = {
-        constructor: Promise,
-
-        then: function (success, error) {
-            if (success) {
-                if (this.resolved) {
-                    success.apply(this.context, this.resolved);
-                }
-                else {
-                    this.success.push(success);
-                }
-            }
-
-            if (error) {
-                if (this.rejected) {
-                    error.apply(this.context, this.rejected);
-                }
-                else {
-                    this.error.push(error);
-                }
-            }
-
-            return this;
-        },
-
-        resolve: function () {
-            var callback;
-
-            this.resolved = arguments;
-            this.error = [];
-
-            while (callback = this.success.shift()) {
-                callback.apply(this.context, this.resolved);
-            }
-        },
-
-        reject: function () {
-            var callback;
-
-            this.rejected = arguments;
-            this.success = [];
-
-            while (callback = this.error.shift()) {
-                callback.apply(this.context, this.rejected);
-            }
-        }
-    };
-
     return Backbone.Events.extend({
 
         methodMap: {
@@ -89,24 +34,30 @@ function(_, Backbone) {
         initialize: function(options){
             this.options = options || {};
             this.targets = this.parseTargets(this.options.targets || {});
-            _(this.targets).each(this.createMethod, this);
+
+            // for each of the target methods, compose a concerete version
+            _.each(this.targets, this.createMethod, this);
         },
 
 
         /**
-         *
+         * Carete a target object for each provided target method
          */
         parseTargets: function(targets){
-            var target;
-            return _(targets).map(function (props, name) {
-                target = { name: name, path: props, method: "GET" };
+            return _.map(targets, function (val, key) {
+                var target = { name: key, path: val, method: "GET", args:[] };
 
-                if (_.isArray(props)) {
-                    var path = props[0],
-                        method = props[1].toUpperCase();
+                // if is string, the val should be a method type such as 'POST'
+                if (_.isString(val))
+                    target.method = val.toUpperCase();
 
-                    _.extend(target, { path: path, method: method });
-                }
+                // if is an array, aasdsumed to be an array of arguments names
+                if (_.isArray(val))
+                    target.args = val;
+
+                // if is a json object, just extend the target object with new values
+                if (_.isObject(val))
+                    _.extend(target, val);
 
                 return target;
             });

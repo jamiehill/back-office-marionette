@@ -155,12 +155,14 @@ function(_, Backbone) {
         getParams: function(target, data){
             var params = {}, nonRequired = 0, that = this;
             _.each(target.args, function(arg, index){
-                if (_.isString(arg))
+                if (_.isString(arg)){
                     params[arg] = data[index];
+                }
                 else if (_.isObject(arg)) {
                     _.each(arg, function(val, key){
-                        if (_.has(that.attributes, val))
+                        if (_.has(that.attributes, val)) {
                             params[key] = that.get(val);
+                        }
                         else {
                             if (_.isEmpty(val)) nonRequired ++;
                             else params[key] = val;

@@ -1,7 +1,7 @@
 define(function(require) {
     return {
-        socket          : require('common/service/SocketService'),
-        api             : require('common/service/ApiService'),
-        session         : require('common/service/SessionService')
+//        socket          : new (require('common/service/SocketService'))(),
+        api             : new (require('common/service/ApiService'))()
+//        session         : new (require('common/service/SessionService'))()
     }
 });

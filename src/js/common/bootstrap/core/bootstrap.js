@@ -1,4 +1,3 @@
-// Main Marionette application module, exports application instance to the outside world
 define(['marionette','common/bootstrap/core/DeferredBase'],
     function(Marionette, DeferredBase) {
 

@@ -4,7 +4,6 @@ define(function(require) {
         date            : require('common/util/DateTimeUtil'),
         href            : require('common/util/HrefUtil'),
         sort            : require('common/util/SortUtil'),
-        string          : require('common/util/StringUtil'),
-        uid             : require('common/util/UIDUtil')
+        string          : require('common/util/StringUtil')
     }
 });

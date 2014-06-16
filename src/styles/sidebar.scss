@@ -1,0 +1,78 @@
+@import "variables";
+
+
+#sidebar {
+  background-color: white;
+  width: 350px;
+  height: 100%;
+  top: $header-height;
+  @include flat-dark();
+
+//  #tabs td {
+//    color: $dark-grey;
+//    font-weight: bold;
+//    background-color: $opaque-light-grey;
+//
+//    .active {
+//    }
+//  }
+
+
+//  .w2ui-tab {
+//    & {
+//      background-color: $opaque-light-grey;
+//
+//    }
+//    .active {
+//      & {
+//        background-color: $light-grey;
+//      }
+//    }
+//
+//  }
+
+
+  .w2ui-tab {
+    background-color: $opaque-light-grey;
+    font-size: 11px;
+
+  }
+
+  .w2ui-tab:hover {
+    cursor: pointer;
+  }
+
+  .w2ui-tab.active {
+    background-color: $light-grey;
+  }
+
+
+
+//  .w2ui-tab.active {
+//    & {
+//      background-color: opaque-light-grey;
+//    }
+//  }
+//
+//  .w2ui-tab {
+//    & {
+//      background-color: $light-grey;
+//    }
+//  }
+
+
+  #tab-content {
+    width: 100%;
+    height: 100%;
+
+    #simpleToolbar {
+
+    }
+
+    #simpleResults {
+      height: 500px;
+    }
+
+  }
+}
+

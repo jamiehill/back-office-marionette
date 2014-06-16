@@ -1,8 +1,16 @@
-define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'app/controller/Bootstrap', 'app/view/AppView'],
-function($, _, Backbone, Marionette, moment, Bootstrap, AppView) {
+define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'app/controller/Bootstrap', 'app/view/AppView', 'app/core/CommonModule'],
+function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonModule) {
 
     // Main application
     var core = new Marionette.Application();
+
+    /**
+     * @type {string}
+     */
+    core.endpoint = 'http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/';
+
+
+    // Core definitions
 
 
     // Set up some default on pre-initialize.
@@ -54,14 +62,20 @@ function($, _, Backbone, Marionette, moment, Bootstrap, AppView) {
     });
 
 
+    // Module definitions
+
+
+    /**
+     * Common module houses all application files, such as services,
+     * models and other pertinent data, that needs to be configured
+     */
+    core.module("Common", CommonModule);
+
+
     // Expose application core to the outside world
     App = {
         core: core,
         appName: 'Ats Back Office',
-        endpoint: 'http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/',
-        views: {},
-        services: {},
-        data: {},
         start: function(options){
             core.start(options);
         }

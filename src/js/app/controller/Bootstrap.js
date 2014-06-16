@@ -6,8 +6,8 @@ define(function(require) {
          * Array of Deferrable Boot sequence objects to invoke
          */
         bootSequence: [
-            require('common/bootstrap/UrlResolver'),
-            require('common/bootstrap/InitCommon')
+            require('common/bootstrap/UrlResolver')
+//            require('common/bootstrap/InitCommon')
         ],
 
 

@@ -54,7 +54,9 @@ function(_, Backbone) {
          * @param options
          */
         initialize: function(options){
+            this.url = options.url;
             this.targetsObjs = this.parseTargets(this.targets || {});
+            _.bindAll(this, 'createMethod');
             _.each(this.targetsObjs, this.createMethod, this);
         },
 
@@ -115,12 +117,13 @@ function(_, Backbone) {
          * @param target
          */
         createMethod: function (target) {
+            var scope = this;
             this[target.request] = function () {
                 var deferred     = $.Deferred(),
-                    options      = this.createOptions(target, arguments, deferred),
-                    method       = this.methodMap[target.method];
-                Backbone.sync(method, this, options);
-                return deferred.promise(this);
+                    options      = scope.createOptions(target, arguments, deferred),
+                    method       = scope.methodMap[target.method];
+                Backbone.sync(method, scope, options);
+                return deferred.promise(scope);
             }
         },
 

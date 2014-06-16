@@ -1,0 +1,14 @@
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+  font-size: 12px;
+  margin: 0;
+  padding:0;
+  -webkit-font-smoothing: antialiased;
+}
+
+.fa {
+  cursor:pointer;
+  vertical-align: middle;
+  font-size: 14px;
+}

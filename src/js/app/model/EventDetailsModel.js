@@ -2,8 +2,7 @@ define(function (require) {
 
     var Marionette = require('marionette'),
         EventCache = require('app/model/EventCache'),
-        Event = require('app/model/models/Event'),
-        App = require('App');
+        Event = require('app/model/models/Event');
 
 
     return Marionette.Controller.extend({
@@ -12,10 +11,11 @@ define(function (require) {
         /**
          * Initialises the model
          */
-        initialize: function(){
-            App.core.vent.bind('boEventSearch_eventSelected', this.onEventSelected);
-            App.core.vent.bind('boEventSearch_eventUnselected', this.onEventUnselected);
-            App.core.vent.bind('SubscribeResponse', this.onEventSubscription);
+        initialize: function(options){
+            this.vent = options.vent;
+            this.vent.bind('search:eventselected', this.onEventSelected);
+            this.vent.bind('search:eventunselected', this.onEventUnselected);
+            this.vent.bind('SubscribeResponse', this.onEventSubscription);
         },
 
         /**

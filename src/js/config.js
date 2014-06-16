@@ -31,5 +31,5 @@ require.config({
 
 // Kick off the main application
 require(['app'], function(app){
-    app.start();
+    App.start();
 })

@@ -1,11 +1,8 @@
 define(function (require) {
-    var App = require('App'),
-        Service = require('common/backbone/Backbone.Service');
-
+    var Service = require('common/backbone/Backbone.Service');
     return Service.extend({
 
 
-        url: App.endpoint,
         targets: {
             'login'                             : { method: 'post', args: ['username', 'password', { 'application': 'application' }] },
             'keepAlive'                         : [{ sessionToken: 'sessionToken' }],

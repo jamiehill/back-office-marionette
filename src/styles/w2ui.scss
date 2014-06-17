@@ -1,3 +1,19 @@
 .w2ui-panel .w2ui-panel-content {
   background-color: transparent;
 }
+
+// changes all w2ui table headers to be flat grey
+.w2ui-grid .w2ui-grid-body table .w2ui-head {
+  margin: 0;
+  padding: 0;
+  border-right: 1px solid #c5c5c5;
+  border-bottom: 1px solid #c5c5c5;
+  color: #000;
+  background: $light-grey;
+}
+
+// shift all grid column header text over a few
+// pixels, but not for the checkbox 'select' column
+.w2ui-grid .w2ui-grid-body table .w2ui-head:not(.w2ui-col-select)  {
+  padding-left: 4px;
+}

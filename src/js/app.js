@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'app/controller/Bootstrap', 'app/view/AppView', 'app/core/CommonModule'],
-function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonModule) {
+define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'app/controller/Bootstrap', 'app/view/AppView', 'app/core/CommonModule', 'common/framework/region/NoWrapRegion'],
+function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonModule, NoWrapRegion) {
 
     // Main application
     var core = new Marionette.Application();
@@ -57,8 +57,16 @@ function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonMod
 
 
     // Set up the display region
+//    core.addRegions({
+//        container: {
+//            selector: '#container',
+//            regionType: NoWrapRegion
+//        }
+//    });
+
+    // Set up the display region
     core.addRegions({
-        container: '#container'
+        container: "#container"
     });
 
 

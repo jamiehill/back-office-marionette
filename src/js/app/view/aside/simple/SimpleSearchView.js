@@ -9,6 +9,7 @@ define([
     return Marionette.View.extend({
 
 
+        id: 'simpleWrapper',
         events: {
             "keyup .searchInput": "onSearch"
         },

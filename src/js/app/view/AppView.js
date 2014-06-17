@@ -1,6 +1,6 @@
 define(['marionette', 'templates', 'app/view/header/HeaderView', 'app/view/tools/ToolsView', 'app/view/aside/SearchView', 'app/view/footer/FooterView', 'app/view/main/MarketDetailsView'],
 
-    function (Marionette, templates, HeaderView, ToolsView, SearchView, FooterView, MarketDetailsView, models, services) {
+    function (Marionette, templates, HeaderView, ToolsView, SearchView, FooterView, MarketDetailsView) {
     return Marionette.Layout.extend({
 
 
@@ -8,7 +8,7 @@ define(['marionette', 'templates', 'app/view/header/HeaderView', 'app/view/tools
         regions: {
             "headerRegion": "#header",
             "toolsRegion": "#tools",
-            "contentRegion": "#main-content",
+            "contentRegion": "#main",
             "sidebarRegion": "#sidebar",
             "footerRegion": "#footer"
         },

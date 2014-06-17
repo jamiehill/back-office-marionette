@@ -3,6 +3,7 @@ define(['marionette', 'moment', 'app/view/aside/simple/SimpleSearchView','app/vi
     return Marionette.Layout.extend({
 
 
+        id: 'tabsWrapper',
         template: _.template(tpl),
         regions: {
             "tabRegion": "#tabs",

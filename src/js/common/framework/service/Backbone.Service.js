@@ -162,13 +162,14 @@ function(_, Backbone) {
                     params[arg] = data[index];
                 }
                 else if (_.isObject(arg)) {
-                    _.each(arg, function(val, key){
-                        if (_.has(that.attributes, val)) {
-                            params[key] = that.get(val);
+                    var pairs = _.pairs(arg);
+                    _.each(pairs, function(element, i){
+                        if (_.has(that.attributes, element[0])) {
+                            params[element[0]] = that.get(element[1]);
                         }
                         else {
-                            if (_.isEmpty(val)) nonRequired ++;
-                            else params[key] = val;
+                            if (_.isUndefined(element[1])) nonRequired ++;
+                            else params[element[0]] = data[index];
                         }
                     });
                 }

@@ -1,4 +1,8 @@
 #footer {
-  @include flat-black();
-  height: $header-height;
+  @include flat-dark();
+  height: $footer-height;
+  border-top: solid 1px #63686e;
+
+  position: absolute;
+  bottom: 0px; left: 0px; right: 0px;
 }

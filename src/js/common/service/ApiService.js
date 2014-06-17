@@ -1,5 +1,5 @@
 define(function (require) {
-    var Service = require('common/backbone/Backbone.Service');
+    var Service = require('common/framework/service/Backbone.Service');
     return Service.extend({
 
 

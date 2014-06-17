@@ -2,21 +2,15 @@
 
 
 #sidebar {
-  background-color: white;
+  @include flat-dark();
 
+  // position it
   position: absolute;
   top: $header-height + $tools-height; left: 0px; bottom: $footer-height;
   width: $aside-width;
 
-
-  @include flat-dark();
-
+  // right dividing border between sidebar and main content area
   border-right: solid 1px $dark;
-
-  // Adds height: 100% to all *Wrapper divs
-  div[id$='Wrapper'] {
-    height: 100%;
-  }
 
   // turns off the right border of the results grid, so
   //that it doesn't conflict with the sidebar border
@@ -24,22 +18,10 @@
     border-right: 1px none;
   }
 
-  // Non-active tabs, greyed out background
-  .w2ui-tab {
-    background-color: $opaque-light-grey;
-    font-size: 11px;
-
-    // Active tab, header colour
-    &.active {
-      background-color: $light-grey;
-    }
-
-    // USe hand on hover
-    &:hover {
-      cursor: pointer;
-    }
+  // Adds height: 100% to all *Wrapper divs
+  div[id$='Wrapper'] {
+    height: 100%;
   }
-
 
   // content of the two tabs
   #tab-content {

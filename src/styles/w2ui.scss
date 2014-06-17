@@ -17,3 +17,19 @@
 .w2ui-grid .w2ui-grid-body table .w2ui-head:not(.w2ui-col-select)  {
   padding-left: 4px;
 }
+
+// Non-active tabs, greyed out background
+.w2ui-tabs .w2ui-tab {
+  background-color: $opaque-light-grey;
+  font-size: 11px;
+
+  // Active tab, header colour
+  &.active {
+    background-color: $light-grey;
+  }
+
+  // USe hand on hover
+  &:hover {
+    cursor: pointer;
+  }
+}

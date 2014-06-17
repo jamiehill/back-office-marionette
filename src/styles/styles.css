@@ -55,25 +55,17 @@ body {
   height: 10px; }
 
 #sidebar {
-  background-color: white;
+  background: #4b4f55;
   position: absolute;
   top: 40px;
   left: 0px;
   bottom: 4px;
   width: 350px;
-  background: #4b4f55;
   border-right: solid 1px #4b4f55; }
-  #sidebar div[id$='Wrapper'] {
-    height: 100%; }
   #sidebar .w2ui-grid {
     border-right: 1px none; }
-  #sidebar .w2ui-tab {
-    background-color: #b7b7b7;
-    font-size: 11px; }
-    #sidebar .w2ui-tab.active {
-      background-color: #efefef; }
-    #sidebar .w2ui-tab:hover {
-      cursor: pointer; }
+  #sidebar div[id$='Wrapper'] {
+    height: 100%; }
   #sidebar #tab-content {
     height: 100%; }
     #sidebar #tab-content #simpleWrapper #simpleResults {
@@ -108,3 +100,11 @@ body {
 
 .w2ui-grid .w2ui-grid-body table .w2ui-head:not(.w2ui-col-select) {
   padding-left: 4px; }
+
+.w2ui-tabs .w2ui-tab {
+  background-color: #b7b7b7;
+  font-size: 11px; }
+  .w2ui-tabs .w2ui-tab.active {
+    background-color: #efefef; }
+  .w2ui-tabs .w2ui-tab:hover {
+    cursor: pointer; }

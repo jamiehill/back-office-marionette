@@ -31,7 +31,8 @@ define(['marionette'],
          */
         items: function(scope){
             return [
-                { type: 'button',  id: 'loginModal', caption: 'Login',    hint: 'Login' },
+                { type: 'html',  id: 'logo', caption: '',html: '<img src="./img/amelco_sm.png" style="padding-left: 5px; padding-top: 3px"></img>' },
+                { type: 'button',  id: 'loginModal', caption: 'Login', hint: 'Login' },
                 { type: 'button',  id: 'searchPunters', caption: 'Search Punters', hint: 'Search Punters',hidden:false },
                 { type: 'button',  id: 'translations', caption: 'Translations', hint: 'Translations',hidden:false }
             ];

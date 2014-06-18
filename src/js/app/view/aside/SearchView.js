@@ -1,5 +1,6 @@
-define(['marionette', 'moment', 'app/view/aside/simple/SimpleSearchView','app/view/aside/advanced/AdvancedSearchView', 'text!app/view/aside/SearchView.tpl.html'],
-    function (Marionette, moment, SimpleSearchView, AdvancedSearchView, tpl) {
+define(['marionette', 'ctx', 'text!app/view/aside/SearchView.tpl.html'],
+function (Marionette, ctx, tpl) {
+
     return Marionette.Layout.extend({
 
 
@@ -15,8 +16,8 @@ define(['marionette', 'moment', 'app/view/aside/simple/SimpleSearchView','app/vi
          * Build main grid
          */
         onShow: function(){
-            this.simple = new SimpleSearchView();
-            this.advanced = new AdvancedSearchView();
+            this.simple = ctx.get('simpleSearchView');
+            this.advanced = ctx.get('advancedSearchView');
 
             var scope = this;
             $('#tabs').w2tabs({

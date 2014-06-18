@@ -1,8 +1,8 @@
-define(['marionette', 'templates'],
+define(['marionette'],
+function (Marionette) {
 
-    function (Marionette) {
-        return Marionette.Layout.extend({
-            onShow: function() {
-            }
-        });
+    return Marionette.Layout.extend({
+        onShow: function() {
+        }
     });
+});

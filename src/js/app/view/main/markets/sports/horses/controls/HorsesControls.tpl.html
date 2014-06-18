@@ -1,0 +1,265 @@
+<style type="text/css">
+
+    #container {
+        width: 100%;
+        overflow: auto;
+        font-size: 12px;
+
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;
+    }
+
+    /* close */
+
+    #close {
+        color: #303641;
+        float: left;
+        overflow: auto;
+        padding: 0 10px 0 2px;
+        border-right: 1px inset #b6bdcb;
+    }
+
+    /* indicators */
+
+    #inds {
+        float: left;
+        /*border-right: 1px inset #b6bdcb;*/
+        overflow: auto;
+        padding: 0 30px 0 5px;
+        width: 30px;
+    }
+
+    #inds > div {
+        float: left;
+        width: 30px;
+        background: #00a651;
+        color: white;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 4px;
+        line-height: 20px;
+        margin: 0 3px 3px 0;
+    }
+
+    #inds > div.on {
+        background: #e80037;
+    }
+
+
+    /* terms */
+
+
+    #terms {
+        float: left;
+        overflow: auto;
+        padding: 0 20px 0 20px;
+        border-right: 1px inset #b6bdcb;
+        display: table-cell;
+    }
+
+    #terms #termsDeduction {
+        width: 50px;
+    }
+
+    #terms ul {
+        padding: 0;
+    }
+
+    #terms li {
+        display: inline;
+        list-style-type: none;
+        padding-right: 3px;
+    }
+
+
+    /* dividends */
+
+    #divs {
+        overflow: auto;
+        padding: 0 20px 0 20px;
+        border-right: 1px solid #b6bdcb;
+        float: left;
+    }
+
+
+    /* rule 4s */
+
+    #r4s {
+        overflow: auto;
+        padding: 0 20px 0 20px;
+        float: right;
+
+        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+        display: -ms-flexbox;      /* TWEENER - IE 10 */
+        display: -webkit-flex;     /* NEW - Chrome */
+        display: flex;
+    }
+
+    #add {
+        float: left;
+        padding: 7px 10px 0 0 ;
+        /*border-right: 1px solid #b6bdcb;*/
+    }
+
+    #rules {
+        float: right;
+        padding: 0 20px 0 0px;
+    }
+
+
+
+
+    /* generic */
+
+    input[type=date]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        display: none;
+    }
+
+    input[type=number] {
+        text-align: left;
+        min-width: 50px;
+    }
+
+
+</style>
+
+<div id="container">
+
+    <div id="close">
+        <i class="fa fa-times-circle fa-lg"></i>
+    </div>
+
+
+    <!--<div id="inds">
+        <div id="fc" class="<%= forecast.class %>">F/C <%= forecast.title %></div>
+        <div id="tc" class="<%= tricast.class %>">T/C <%= tricast.title %></div>
+        <div id="ew" class="<%= eachway.class %>">EW <%= eachway.title %></div>
+    </div>-->
+
+
+    <div id="inds">
+        <div id="fc" class="<%= forecast.class %>" title="Forecast <%= forecast.title %>">F/C</div>
+        <div id="tc" class="<%= tricast.class %>" title="Tricast <%= forecast.title %>">T/C</div>
+        <div id="ew" class="<%= eachway.class %>" title="Eachway <%= forecast.title %>">E/W</div>
+    </div>
+
+
+    <div id="terms">
+        <ul>
+            <li>Place Terms:</li>
+            <li><input id="termsPlaces" type="number" name="place" min="1" max="<%= runners.length - 1 %>" value="<%= eachway.places %>"/></li>
+            <li>at</li>
+            <!--<li><input id="termsDeduction" type="text" name="deduction" value="<%= deduction %>"></li>-->
+            <li><input id="termsDeduction" type="number" name="deduction" value="<%= deduction %>"></li>
+        </ul>
+    </div>
+
+
+    <div id="divs">
+        <table>
+            <tr>
+                <td>F/C</td>
+                <td>
+                    <select >
+                        <option value>Please select</option>
+                        <% _.each(runners, function(runner) { %>
+                            <% if (runner.id == forecast.first.id) { %>
+                                <option value="<%= runner.id %>" selected><%= runner.get('name') %></option>
+                            <% } else { %>
+                                <option value="<%= runner.id %>" ><%= runner.get('name') %></option>
+                            <% } %>
+                        <% }); %>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option value>Please select</option>
+                        <% _.each(runners, function(runner) { %>
+                            <% if (runner.id == forecast.second.id) { %>
+                                <option value="<%= runner.id %>" selected><%= runner.get('name') %></option>
+                            <% } else { %>
+                                <option value="<%= runner.id %>" ><%= runner.get('name') %></option>
+                            <% } %>
+                        <% }); %>
+                    </select>
+                </td>
+                <td></td>
+                <td><input type="number" name="fcAmount" min="1" max="5" size="10" value="<%= forecast.amount %>"/></td>
+            </tr>
+            <tr>
+                <td>T/C</td>
+                <td>
+                    <select>
+                        <option value>Please select</option>
+                        <% _.each(runners, function(runner) { %>
+                            <% if (runner.id == tricast.first.id) { %>
+                                <option value="<%= runner.id %>" selected><%= runner.get('name') %></option>
+                            <% } else { %>
+                                <option value="<%= runner.id %>" ><%= runner.get('name') %></option>
+                            <% } %>
+                        <% }); %>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option value>Please select</option>
+                        <% _.each(runners, function(runner) { %>
+                            <% if (runner.id == tricast.second.id) { %>
+                                <option value="<%= runner.id %>" selected><%= runner.get('name') %></option>
+                            <% } else { %>
+                                <option value="<%= runner.id %>" ><%= runner.get('name') %></option>
+                            <% } %>
+                        <% }); %>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option value>Please select</option>
+                        <% _.each(runners, function(runner) { %>
+                            <% if (runner.id == tricast.third.id) { %>
+                                <option value="<%= runner.id %>" selected><%= runner.get('name') %></option>
+                            <% } else { %>
+                                <option value="<%= runner.id %>" ><%= runner.get('name') %></option>
+                            <% } %>
+                        <% }); %>
+                    </select>
+                </td>
+                <td><input type="number" name="place" min="1" max="5" size="5" value="<%= tricast.amount %>"/></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div id="r4s">
+        <div id="add">
+            <i id="addIcon" class="fa fa-plus-square fa-lg" title='Add new Dividend'></i>
+        </div>
+        <div id="rules">
+            <table>
+                <% _.each(deductions, function(deduction) { %>
+                    <tr>
+                        <td>
+                            <select>
+                                <option>LP</option>
+                                <option>SP</option>
+                            </select>
+                        </td>
+                        <td><input type="datetime-local" required value="<%= deduction.get('fromTime') %>"/></td>
+                        <td><input type="datetime-local" required value="<%= deduction.get('toTime') %>"/></td>
+                        <td><input type="number" name="place" min="1" max="5" value="<%= deduction.get('amount') %>"/></td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+</div>

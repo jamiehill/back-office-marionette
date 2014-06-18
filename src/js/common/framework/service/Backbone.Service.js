@@ -54,7 +54,6 @@ function(_, Backbone) {
          * @param options
          */
         initialize: function(options){
-            this.url = options.url;
             this.targetsObjs = this.parseTargets(this.targets || {});
             _.bindAll(this, 'createMethod');
             _.each(this.targetsObjs, this.createMethod, this);

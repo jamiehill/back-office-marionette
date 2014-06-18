@@ -10,13 +10,13 @@ define(['marionette','common/bootstrap/core/DeferredBase'],
          * @param options
          */
         initialize:function (options) {
-            console.log('Bootstrap: Start ('+ _.size(options.boot)+')');
             DeferredBase.prototype.initialize.apply(this, options);
-
             _.bindAll(this, 'next', 'fail', 'finish');
 
-            this.sequence = options.boot;
+            this.options = options;
+            this.sequence = options.boot || [];
             this.failOnError = options.failOnError || true;
+
             this.next();
         },
 
@@ -28,7 +28,7 @@ define(['marionette','common/bootstrap/core/DeferredBase'],
             if (_.size(this.sequence) == 0) {
                 this.finish();
             } else {
-                var model = new (this.sequence.shift())(),
+                var model = new (this.sequence.shift())(this.options),
                     scope = this;
                 $.when(model.deferred)
                     .then(scope.next, scope.fail);

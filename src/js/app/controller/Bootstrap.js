@@ -6,8 +6,8 @@ define(function(require) {
          * Array of Deferrable Boot sequence objects to invoke
          */
         bootSequence: [
-            require('common/bootstrap/UrlResolver')
-//            require('common/bootstrap/InitCommon')
+            require('common/bootstrap/UrlResolver'),
+            require('app/core/AppConfig')
         ],
 
 
@@ -16,11 +16,11 @@ define(function(require) {
          * @param options
          */
         initialize:function (options) {
-            Bootstrap.prototype.initialize({
+            this.options = _.extend({}, options, {
                 boot: this.bootSequence,
                 failOnError: false
             });
+            Bootstrap.prototype.initialize(this.options);
         }
-
     });
 });

@@ -20,6 +20,7 @@ function (Backbone, Event) {
          * @param event
          */
         addEvent: function(evt) {
+            if (_.isUndefined(evt)) return;
             this.getSport(evt.get('sport')).add(evt);
             this.add(evt);
             this.trigger("addEvent", {event:evt});
@@ -31,6 +32,7 @@ function (Backbone, Event) {
          * @param evts
          */
         addAll: function(evts) {
+            if (_.isUndefined(evts)) return;
             _.each(evts, this.addEvent, this);
         },
 

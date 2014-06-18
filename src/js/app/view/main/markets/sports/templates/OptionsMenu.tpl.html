@@ -1,0 +1,5 @@
+<ul id="optionsMenu" class="menu optionsMenuPopup <%= id %>" style="<%= style %>">
+    <% _.each(items, function(item) { %>
+        <li><a data-id="<%= id %>" data-is-market="<%= isMarket %>" id="<%= item.class %>" ><%= item.title %></a></li>
+    <% }); %>
+</ul>

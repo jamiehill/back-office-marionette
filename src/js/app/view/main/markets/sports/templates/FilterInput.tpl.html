@@ -1,0 +1,23 @@
+<style type="text/css">
+    #filterIcon {
+        padding:0px 0px!important;
+        color: #68718a;
+        overflow: auto;
+        width: 100%;
+    }
+
+    .filterInput {
+        font-size: 12px!important;
+        padding: 3px 5px;
+        border-radius: 3px;
+        border: 1px solid silver
+    }
+</style>
+
+<%
+  var faIcon = icon || 'fa fa-filter fa-fw';
+%>
+
+<div id="filterIcon" class="<%= faIcon %>" title="<%= tooltip %>">
+    <input class="filterInput" size="24"/>
+</div>

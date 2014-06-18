@@ -1,6 +1,7 @@
 define(function (require) {
     var Service = require('common/framework/service/Backbone.Service');
     return Service.extend({
+        dependencies: 'url=endpoint, session=sessionModel, appid',
 
 
         targets: {
@@ -42,10 +43,10 @@ define(function (require) {
 
         defaults: {
             sessionToken: function(){
-                return App.models.commo;
+                return this.session.getSessionToken();
             },
             application: function(){
-                return App.appName;
+                return this.appid;
             }
         }
     });

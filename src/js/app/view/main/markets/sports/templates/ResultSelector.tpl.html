@@ -1,0 +1,58 @@
+<style type="text/css">
+
+    .results {
+        font-size: 12px!important;
+        /*overflow: auto;*/
+        /*padding: 0 20px 0 20px;*/
+    }
+
+    .unsaved {
+        border : red 1px solid;
+    }
+
+
+</style>
+
+<% if (isMarket) { %>
+    <span><% if (open) { %>
+            Open
+        <% } else { %>
+            Settled
+        <% } %></span>
+<% } else { %>
+    <select class="results" data-id="<%= record.item.id %>" data-is-market="<%= isMarket %>">
+        <option value>-</option>
+
+        <% if (result === 'WIN') { %>
+            <option value="WIN" selected>Win</option>
+        <% } else { %>
+            <option value="WIN" >Win</option>
+        <% } %>
+
+        <% if (result === 'DRAW') { %>
+            <option value="DRAW" selected>Draw</option>
+        <% } else { %>
+            <option value="DRAW" >Draw</option>
+        <% } %>
+
+        <% if (result === 'PLACE') { %>
+            <option value="PLACE" selected>Place</option>
+        <% } else { %>
+            <option value="PLACE" >Place</option>
+        <% } %>
+
+        <% if (result === 'LOSE') { %>
+            <option value="LOSE" selected>Lose</option>
+        <% } else { %>
+            <option value="LOSE" >Lose</option>
+        <% } %>
+
+        <% if (result === 'VOID') { %>
+            <option value="VOID" selected>Void</option>
+        <% } else { %>
+            <option value="VOID" >Void</option>
+        <% } %>
+
+    </select>
+<% } %>
+

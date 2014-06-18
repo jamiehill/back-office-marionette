@@ -1,10 +1,10 @@
-define(['marionette', 'templates', 'app/view/header/HeaderView', 'app/view/tools/ToolsView', 'app/view/aside/SearchView', 'app/view/footer/FooterView', 'app/view/main/MarketDetailsView'],
+define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/header/HeaderView', 'app/view/tools/ToolsView', 'app/view/aside/SearchView', 'app/view/footer/FooterView', 'app/view/main/markets/MarketDetailsView'],
 
-    function (Marionette, templates, HeaderView, ToolsView, SearchView, FooterView, MarketDetailsView) {
+    function (Marionette, ctx, tpl, HeaderView, ToolsView, SearchView, FooterView, MarketDetailsView) {
     return Marionette.Layout.extend({
 
 
-        template: templates.appView,
+        template: _.template(tpl),
         regions: {
             "headerRegion": "#header",
             "toolsRegion": "#tools",
@@ -31,7 +31,7 @@ define(['marionette', 'templates', 'app/view/header/HeaderView', 'app/view/tools
          * @returns {*|MarketDetailsView}
          */
         getView: function(){
-            return new MarketDetailsView();
+            return ctx.get("marketDetailsView");
         }
     });
 });

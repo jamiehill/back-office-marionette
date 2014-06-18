@@ -1,14 +1,8 @@
-define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'app/controller/Bootstrap', 'app/view/AppView', 'app/core/CommonModule', 'common/framework/region/NoWrapRegion'],
-function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonModule, NoWrapRegion) {
+define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'modal', 'app/controller/Bootstrap', 'app/view/AppView'],
+function($, _, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
 
     // Main application
     var core = new Marionette.Application();
-
-    /**
-     * @type {string}
-     */
-    core.endpoint = 'http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/';
-
 
     // Core definitions
 
@@ -21,7 +15,7 @@ function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonMod
         core.bootStart = moment();
 
         // Perform app bootstrap sequence
-        var bootstrap = new Bootstrap();
+        var bootstrap = new Bootstrap({app: core});
             bootstrap.deferred.done(function() {
             core.vent.trigger('app:start');
         });
@@ -71,13 +65,6 @@ function($, _, Backbone, Marionette, moment, w2ui, Bootstrap, AppView, CommonMod
 
 
     // Module definitions
-
-
-    /**
-     * Common module houses all application files, such as services,
-     * models and other pertinent data, that needs to be configured
-     */
-    core.module("Common", CommonModule);
 
 
     // Expose application core to the outside world

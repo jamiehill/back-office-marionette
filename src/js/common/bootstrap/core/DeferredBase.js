@@ -11,6 +11,7 @@ define(['backbone'],
          */
         initialize:function (options) {
             _.bindAll(this, 'success', 'failure');
+            this.options = options;
             this.deferred = $.Deferred();
             this.init();
         },

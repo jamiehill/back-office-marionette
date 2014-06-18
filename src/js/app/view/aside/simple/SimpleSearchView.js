@@ -1,12 +1,13 @@
 define([
-        'marionette', 'moment',
+    'marionette', 'moment',
 
-        'text!app/view/aside/simple/SimpleSearchView.tpl.html',
-        'text!app/view/aside/simple/SearchInput.tpl.html'
-    ],
+    'text!app/view/aside/simple/SimpleSearchView.tpl.html',
+    'text!app/view/aside/simple/SearchInput.tpl.html'
+],
+function (Marionette, moment, tpl, filterTpl) {
 
-    function (Marionette, moment, tpl, filterTpl) {
     return Marionette.View.extend({
+        dependencies: 'vent, apiService',
 
 
         id: 'simpleWrapper',
@@ -19,7 +20,7 @@ define([
          *
          */
         onShow: function(){
-            _.bindAll(this, 'onSearch');
+            _.bindAll(this, 'onSearch', 'onSelect');
 
             var template = _.template(tpl, {});
             this.$el.html(template);
@@ -80,11 +81,10 @@ define([
             w2ui['simpleSearchResults'].clear();
             w2ui['simpleSearchResults'].lock('Searching...');
 
-            var service = App.core.services.api.eventSearch,
-                expired = w2ui['simpleToolbar'].get('past').checked,
+            var expired = w2ui['simpleToolbar'].get('past').checked,
                 scope = this;
 
-            service(e.target.value, expired).done(function(resp){
+            this.apiService.eventSearch(e.target.value, expired).done(function(resp){
                 scope.onSearchResults(resp, scope);
             });
         },
@@ -119,7 +119,7 @@ define([
          */
         onSelect: function(e){
             var event = w2ui['simpleSearchResults'].get(e.recid).event;
-            App.core.vent.trigger('search:eventselected', event);
+            this.vent.trigger('search:eventselected', event);
         },
 
 
@@ -129,7 +129,7 @@ define([
          */
         onUnselect: function(e){
             var event = w2ui['simpleSearchResults'].get(e.recid).event;
-            App.core.vent.trigger('search:eventunselected', event);
+            this.vent.trigger('search:eventunselected', event);
         },
 
 

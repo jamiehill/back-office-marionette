@@ -4,15 +4,15 @@ define(function (require) {
         EventCache = require('app/model/EventCache'),
         Event = require('app/model/models/Event');
 
-
     return Marionette.Controller.extend({
-        cache: new EventCache(),
+        dependencies: 'vent, cache=eventCache, apiService, socketService',
+
 
         /**
          * Initialises the model
          */
-        initialize: function(options){
-            this.vent = options.vent;
+        ready: function(options){
+            _.bindAll(this, 'onEventSelected', 'onEventUnselected', 'onEventSubscription');
             this.vent.bind('search:eventselected', this.onEventSelected);
             this.vent.bind('search:eventunselected', this.onEventUnselected);
             this.vent.bind('SubscribeResponse', this.onEventSubscription);
@@ -23,7 +23,7 @@ define(function (require) {
          */
         updateSubscriptions: function(){
             var events = this.getActiveEvents();
-            App.services.socket.subscribeToEvents(events);
+            this.socketService.subscribeToEvents(events);
         },
 
 
@@ -35,7 +35,7 @@ define(function (require) {
         loadEvent: function(evt){
             var that = this;
             that.evt = evt;
-            App.services.api.getFullEventDetails(this, function(resp){
+            this.apiService.getFullEventDetails(this, function(resp){
                 var response = resp.attributes.Response;
                 if (response.status === 'ERROR') return;
 
@@ -68,16 +68,16 @@ define(function (require) {
          * @param e
          */
         onEventSelected: function(e) {
-            var hasEvent = this.cache.hasEvent(e.data.id);
+            var hasEvent = this.cache.hasEvent(e.id);
 
             // The event can exist on the cache, regardless of whether it exists in a 'sport'
             // collection.  Re-adding it, will ensure that it is housed in the correct
             // sport collection, and re-fire any collection events required to update the views
             if (hasEvent == false)
-                this.loadEvent(Event.parse(e.data));
+                this.loadEvent(Event.parse(e));
             else
             {
-                this.cache.addEventToSport(e.data.id);
+                this.cache.addEventToSport(e.id);
                 this.updateSubscriptions();
             }
         },
@@ -88,7 +88,7 @@ define(function (require) {
          * @param e
          */
         onEventUnselected: function(e) {
-            var event = this.cache.get(e.data.id);
+            var event = this.cache.get(e.id);
             if (event === undefined) return;
             this.cache.removeEvent(event);
         },
@@ -101,8 +101,5 @@ define(function (require) {
         onEventSubscription: function(events){
             this.cache.updateEvents(events.data);
         }
-
-
     });
-
 });

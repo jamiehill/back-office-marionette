@@ -1,4 +1,4 @@
-define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'modal', 'app/controller/Bootstrap', 'app/view/AppView'],
+define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'modal', 'app/core/Bootstrap', 'app/view/AppView'],
 function($, _, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
 
     // Main application

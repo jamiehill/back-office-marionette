@@ -16,37 +16,47 @@ function(_, Backbone) {
 
 
         /**
-         * Targets object should be either array or object
-         * The key value should always represent the remote method
-         * name to invoke.  The value can have several different properties.
-         * If it's a String, it should represent the method type.  If it's an
-         * array, it should be an array of expected arguments.  if it's an
-         * object, it can contain any of the following,
          *
-         * 'method' - String representing the method type ie. 'POST' (not case sensitive),
-         * 'args' - Array of strings/objects representing expected arguments to pass to method call.
-         * if the item is an object, it should represent the argument name, and default value for this
-         * argument.  The value should be a string.  But if the string matches a 'defaults' attribute
-         * value, it will use that to query the value on each invocation.  this is especially
-         * usefully for seemlessly retrieving dynamic values, such as a sessionToken.
-         * exmaple:
+         * Targets object should be an object of service method object definitions.
          *
-         * Method type will always default to a 'GET' unless specified.
+         * Each definition, should have the actual remote service method name as it's key,
+         * and an options objects as follows:
          *
-         * defaults: {
-         *  sessionToken: function(){
-         *      return this.sessionModel.getSessionToken();
+         * The options can comprise of all/any of the following two option definitions:
+         *
+         * 1) 'method' - the service method type.  Can be any of the values above from the methodMap object.  If a 'method' hash is not provided, 'get' is used as default. Case-unsensitive. ie:
+         *
+         * targets: {
+         *  'someServiceMethod': {
+         *      'method': 'post'
          *  }
          * }
          *
-         * targets: {
-         *  "someRemoteMethod": "POST",
-         *  "login": [ "username":"password" ],
-         *  "getEvents": { method:"get", args:[ 'nodeId', 'sport' ] },
+         * 2) 'args' - arguments for the method call.  Should be an array of argument definitions.  An argument definition should either be:
+         *  a) A String, specifying the remote argument name, and denoting a required argument that should always be provided
+         *  b) An object containing the argument name as key, and the argument's default value, if not explicitly provided by user.
+         *  c) An object containing the argument name as key, and another object, with key 'attr' and name of an attribute on the model to retrieve the value
          *
-         *  // here 'sessionToken' matches an attribute, so that method will be invoked each time required.
-         *  "getEvent": { args:[ 'nodeId', {sport:'football, sessionToken:'sessionToken'}] }
+         * defaults: {
+         *  sessionToken: function(){
+         *      return this.session.getSessionToken();
+         *  },
          * }
+         *
+         * targets: {
+         *  'someServiceMethod': {
+         *      'method': 'post',
+         *      args: [
+         *          'firstRequiredArgument',                    // required argument must be applied to function invocation (see a)
+         *          {'secondArgument': 'defaultValue'}          // non-required argument, has default value specified (see b)
+         *          {'thirdArgument': { attr: 'sessionToken'}}  // non-required argument, use implicit value (see c)
+         *      ]
+         *  }
+         * }
+         *
+         *
+         * The arguments array, should match exactly the order or arguments supplied to the method, when providing user defined values.
+         * Any number of unrequired methods may be stipulated as null or undefined or '' to prevent the default value being overriden.
          */
 
 
@@ -67,11 +77,11 @@ function(_, Backbone) {
             return _.map(targets, function (options, request) {
                 var target = { request: request, method: "get", args:[] };
 
-                // if is string, the options should be a method type such as 'POST'
+                // if is string, the options should only be a method type such as 'POST'
                 if (_.isString(options))
                     target.method = options.toUpperCase();
 
-                // if is an array, assumed to be an array of arguments names/objects
+                // if is an array, assumed to be an array of required arguments names
                 if (_.isArray(options))
                     target.args = options;
 
@@ -145,7 +155,7 @@ function(_, Backbone) {
                 error   : function (xhr, status, error) {
                    deferred.reject(error, xhr);
                 }
-            });
+            }, target.method);
         },
 
 
@@ -155,29 +165,37 @@ function(_, Backbone) {
          * @param data
          */
         getParams: function(target, data){
-            var params = {}, nonRequired = 0, that = this;
+            var params = {}, that = this;
+
+            // iterate through each argument
             _.each(target.args, function(arg, index){
+
+                // if it's a string, it's an expected arg, so take it from the data array
                 if (_.isString(arg)){
                     params[arg] = data[index];
                 }
+
+                // if it's an object, it's either been set with a default value, or an
+                // implicit value.  Should set the default/implicit, before applying user value
                 else if (_.isObject(arg)) {
-                    var pairs = _.pairs(arg);
-                    _.each(pairs, function(element, i){
-                        if (_.has(that.attributes, element[0])) {
-                            params[element[0]] = that.get(element[1]);
-                        }
-                        else {
-                            if (_.isUndefined(element[1])) nonRequired ++;
-                            else params[element[0]] = data[index];
-                        }
-                    });
+                    var keyValue = _.pairs(arg)[0];
+
+                    // the argument value is an 'attr' type object, which denotes an implicit value.
+                    if (_.isObject(keyValue[1]) && _.has(keyValue[1], 'attr')){
+                        // get and set the implicit value
+                        params[keyValue[0]] = that.get(keyValue[1].attr);
+                    }
+                    // otherwise it's simply a default value as should be set as the
+                    // default, before any user provided value is applied.
+                    else {
+                        params[keyValue[0]] = keyValue[1];
+
+                        // is a user defined value, so apply it.
+                        if (data.length >= index && !_.isUndefined(data[index]))
+                            params[keyValue[0]] = data[index];
+                    }
                 }
             });
-
-            // if the number of configured args does not match the number required, throw error
-            if (_.size(params) != target.args.length - nonRequired)
-                throw new Error("ServiceMethodInvocationException :: the method: '"+target.name+"' expected "+
-                    target.args.length+" arguments - "+target.args.toString()+", but received "+arguments.length);
 
             return $.param(params);
         },

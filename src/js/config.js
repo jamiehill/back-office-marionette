@@ -17,7 +17,8 @@ require.config({
         'text'                  : 'vendor/requirejs-text/text',
         'moment'                : 'vendor/moment/moment',
         'di'                    : 'vendor/di',
-        'ctx'                   : 'app/core/ctx'
+        'ctx'                   : 'app/core/ctx',
+        'app'                   : 'app'
     },
 
 

@@ -5,14 +5,14 @@ define(function (require) {
         Event = require('app/model/models/Event');
 
     return Marionette.Controller.extend({
-        dependencies: 'vent, cache=eventCache, apiService, socketService',
+        dependencies: 'vent, cache=eventCache, api=apiService, socket=socketService',
 
 
         /**
          * Initialises the model
          */
         ready: function(options){
-            _.bindAll(this, 'onEventSelected', 'onEventUnselected', 'onEventSubscription');
+            _.bindAll(this, 'onEventSelected', 'onEventUnselected', 'onEventSubscription', 'loadEvent', 'getActiveEvents');
             this.vent.bind('search:eventselected', this.onEventSelected);
             this.vent.bind('search:eventunselected', this.onEventUnselected);
             this.vent.bind('SubscribeResponse', this.onEventSubscription);
@@ -23,7 +23,7 @@ define(function (require) {
          */
         updateSubscriptions: function(){
             var events = this.getActiveEvents();
-            this.socketService.subscribeToEvents(events);
+            this.socket.subscribeToEvents(events);
         },
 
 
@@ -35,15 +35,15 @@ define(function (require) {
         loadEvent: function(evt){
             var that = this;
             that.evt = evt;
-            this.apiService.getFullEventDetails(this, function(resp){
-                var response = resp.attributes.Response;
+            this.api.getFullEventDetails(evt.id).done(function(resp){
+                var response = resp.Response;
                 if (response.status === 'ERROR') return;
 
                 that.evt.populate(response.body.Node);
                 that.cache.addEvent(evt);
 
                 that.updateSubscriptions();
-            }, evt.id);
+            });
         },
 
 
@@ -74,7 +74,7 @@ define(function (require) {
             // collection.  Re-adding it, will ensure that it is housed in the correct
             // sport collection, and re-fire any collection events required to update the views
             if (hasEvent == false)
-                this.loadEvent(Event.parse(e));
+                this.loadEvent(new Event(e));
             else
             {
                 this.cache.addEventToSport(e.id);

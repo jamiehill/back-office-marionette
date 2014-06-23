@@ -1,8 +1,8 @@
 define([
         'marionette', 'moment',
 
-        'text!app/view/aside/advanced/AdvancedSearchView.tpl.html',
-        'text!app/view/aside/simple/SearchInput.tpl.html'
+        'text!app/view/search/advanced/AdvancedSearchView.tpl.html',
+        'text!app/view/search/simple/SearchInput.tpl.html'
     ],
 
     function (Marionette, moment, tpl, filterTpl) {

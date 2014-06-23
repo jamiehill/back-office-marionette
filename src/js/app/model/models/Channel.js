@@ -48,21 +48,23 @@ function (Backbone, Instrument) {
                 if (instr !== undefined)
                     instr.update(i)
             });
-        }
+        },
 
-
-    },{
 
         /**
          *
          */
         parse: function(data){
-            var channel = new Channel({id: data.channel});
             _.each(data.selection, function(s){
-                channel.addInstrument(Instrument.parse(s));
-            });
+                this.addInstrument(new Instrument(s));
+            }, this);
             return channel;
         }
+
+
+    },{
+
+
 
     });
 });

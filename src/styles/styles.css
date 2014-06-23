@@ -23,7 +23,7 @@ body {
   position: relative;
   margin: 0 auto; }
 
-#header {
+#nav {
   background: #1F2430;
   border-bottom: solid 1px #080b10;
   position: absolute;
@@ -31,9 +31,9 @@ body {
   left: 0px;
   right: 0px;
   height: 30px; }
-  #header .w2ui-button {
+  #nav .w2ui-button {
     margin-left: 6px; }
-    #header .w2ui-button .w2ui-tb-caption {
+    #nav .w2ui-button .w2ui-tb-caption {
       cursor: pointer;
       color: #E3E6EB;
       font-size: 11px;
@@ -41,48 +41,47 @@ body {
       text-transform: uppercase;
       padding-top: 3px;
       text-shadow: 0px -1px 0px #000; }
-    #header .w2ui-button.over {
+    #nav .w2ui-button.over {
       border: 1px solid transparent;
       background: none; }
-      #header .w2ui-button.over .w2ui-tb-caption {
+      #nav .w2ui-button.over .w2ui-tb-caption {
         color: #ffffff; }
 
-#tools {
-  background: #4b4f55;
-  height: 10px;
-  border-top: solid 1px #63686e;
+#header {
+  background: #303640;
+  border-top: solid 1px #3e4349;
   position: absolute;
   top: 30px;
   left: 0px;
   right: 0px;
   height: 10px; }
 
-#sidebar {
-  background: #4b4f55;
+#search {
+  background: #303640;
   position: absolute;
   top: 40px;
   left: 0px;
   bottom: 4px;
   width: 350px;
-  border-right: solid 1px #4b4f55; }
-  #sidebar .w2ui-grid {
+  border-right: solid 1px #303640; }
+  #search .w2ui-grid {
     border-right: 1px none; }
-  #sidebar div[id$='Wrapper'] {
+  #search div[id$='Wrapper'] {
     height: 100%; }
-  #sidebar #tab-content {
+  #search #tab-content {
     height: 100%; }
-    #sidebar #tab-content #simpleWrapper #simpleResults {
+    #search #tab-content #simpleWrapper #simpleResults {
       height: 100%; }
 
 #main {
   position: absolute;
-  top: 40px;
+  top: 20px;
   left: 350px;
   bottom: 4px;
   right: 0px; }
 
 #footer {
-  background: #4b4f55;
+  background: #303640;
   height: 4px;
   border-top: solid 1px #63686e;
   position: absolute;

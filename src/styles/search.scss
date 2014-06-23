@@ -1,13 +1,13 @@
 @import "variables";
 
 
-#sidebar {
+#search {
   @include flat-dark();
 
   // position it
   position: absolute;
-  top: $header-height + $tools-height; left: 0px; bottom: $footer-height;
-  width: $aside-width;
+  top: $nav-height + $header-height; left: 0px; bottom: $footer-height;
+  width: $search-width;
 
   // right dividing border between sidebar and main content area
   border-right: solid 1px $dark;

@@ -1,5 +1,5 @@
-define(['backbone', 'app/model/models/Market'],
-function (Backbone, Market) {
+define(['backbone', 'app/model/models/Market', 'app/model/models/Event'],
+function (Backbone, Market, Event) {
     return Backbone.Model.extend({
 
         LinkedFromNodes: null,
@@ -38,7 +38,7 @@ function (Backbone, Market) {
 
 
         initialize: function(){
-            $.subscribe('InstrumentUpdate', this, this.onInstrumentUpdate);
+//            $.subscribe('InstrumentUpdate', this, this.onInstrumentUpdate);
         },
 
 
@@ -134,32 +134,30 @@ function (Backbone, Market) {
         onInstrumentUpdate: function(e){
             if (e.data.eventId === this.get('id'))
                 this.trigger('change', this);
+        },
+
+
+        /**
+         * TODO: Incorporate into one Event instance when data initially loaded
+         */
+        parse : function(data){
+            this.set('id', data.id);
+            this.set('name', data.name);
+            this.set('eventTime', new Date(data.eventTime));
+            this.set('recid', '');
+            this.set('sport', data.sportsCode);
+            this.set('data', data);
         }
 
 
     },{
 
         /**
-         * TODO: Incorporate into one Event instance when data initially loaded
-         */
-        parse : function(data){
-            return new Event({
-                id: data.id,
-                name: data.name,
-                eventTime: new Date(data.eventTime),
-                recid: "",
-                sport: data.sportsCode,
-                data: data
-            });
-        },
-
-
-        /**
          *
          */
         parseMarkets: function(mkts, eventId){
             var markets = _.map(mkts, function(m){
-                return Market.parse(m, eventId);
+                return new Market(m, eventId);
             });
             return App.util.collection.factory(Market, markets);
         },
@@ -170,7 +168,7 @@ function (Backbone, Market) {
          */
         parseLinkedFromNodes: function(nds){
             var nodes = _.map(nds, function(n){
-                return LinkedFromNodes.parse(n);
+                return new LinkedFromNodes(n);
             });
             return App.util.collection.factory(LinkedFromNodes, nodes);
         }

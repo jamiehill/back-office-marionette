@@ -1,9 +1,7 @@
 define(function (require) {
 
     var Marionette = require('marionette'),
-        Deduction = require('app/model/models/Deduction');
         tpl = require('text!app/view/main/markets/sports/horses/controls/HorsesControls.tpl.html');
-
 
     return Marionette.View.extend({
 

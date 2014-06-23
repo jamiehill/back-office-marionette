@@ -1,15 +1,15 @@
-define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/header/HeaderView', 'app/view/tools/ToolsView', 'app/view/aside/SearchView', 'app/view/footer/FooterView', 'app/view/main/markets/MarketDetailsView'],
+define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/nav/NavBarView', 'app/view/header/HeaderView', 'app/view/search/SearchView', 'app/view/footer/FooterView', 'app/view/main/markets/MarketDetailsView'],
 
-    function (Marionette, ctx, tpl, HeaderView, ToolsView, SearchView, FooterView, MarketDetailsView) {
+    function (Marionette, ctx, tpl, NavBarView, HeaderView, SearchView, FooterView, MarketDetailsView) {
     return Marionette.Layout.extend({
 
 
         template: _.template(tpl),
         regions: {
+            "navRegion": "#nav",
             "headerRegion": "#header",
-            "toolsRegion": "#tools",
             "contentRegion": "#main",
-            "sidebarRegion": "#sidebar",
+            "searchRegion": "#search",
             "footerRegion": "#footer"
         },
 
@@ -18,10 +18,10 @@ define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/header/
          * Main initialisation
          */
         onShow: function() {
+            this.navRegion.show(ctx.get("navBarView"));
             this.headerRegion.show(new HeaderView());
-            this.toolsRegion.show(new ToolsView());
             this.contentRegion.show(this.getView());
-            this.sidebarRegion.show(new SearchView());
+            this.searchRegion.show(new SearchView());
             this.footerRegion.show(new FooterView());
         },
 

@@ -1,9 +1,0 @@
-#tools {
-  @include flat-dark();
-  height: $tools-height;
-  border-top: solid 1px #63686e;
-
-  position: absolute;
-  top: $header-height; left: 0px; right: 0px;
-  height: $tools-height;
-}

@@ -66,29 +66,28 @@ function (Backbone, moment) {
                 target: target
             };
             this.set(name, value);
-        }
+        },
 
-    },{
 
         /**
          * @param data
          * @returns {Market}
          */
         parse : function(data, eventId, marketId){
-            var that = this;
-            that.data = data;
-            that.instr = new Instrument();
-            that.instr.eventId = eventId;
-            that.instr.marketId = marketId;
+            this.set('eventId', eventId);
+            this.set('marketId', marketId);
 
             _.each(data, function(val, key){
-                if (_.has(that.instr.defaults, key))
+                if (_.has(this.defaults, key))
                     if (key === 'lpDeductionTime' || key === 'spDeductionTime')
                         val = moment(new Date(val)).format('H:m DD-DM-YY');
-                    that.instr.set(key, val);
-            });
-            return that.instr;
+                this.set(key, val);
+            }, this);
         }
+
+    },{
+
+
 
     });
 });

@@ -3960,7 +3960,7 @@ w2utils.keyboard = (function (obj) {
 				.attr('name', this.name)
 				.addClass('w2ui-reset w2ui-grid')
 				.html('<div>'+
-					  '	<div id="grid_'+ this.name +'_header" class="w2ui-grid-header"></div>'+
+					  '	<div id="grid_'+ this.name +'_header" class="w2ui-grid-nav"></div>'+
 					  '	<div id="grid_'+ this.name +'_toolbar" class="w2ui-grid-toolbar"></div>'+
 					  '	<div id="grid_'+ this.name +'_body" class="w2ui-grid-body"></div>'+
 					  '	<div id="grid_'+ this.name +'_summary" class="w2ui-grid-body w2ui-grid-summary"></div>'+
@@ -10834,7 +10834,7 @@ var w2confirm = function (msg, title, callBack) {
 			if (eventData.isCancelled === true) return false;
 			// default behaviour
 			var main 	= $(this.box).find('> div');
-			var header	= $(this.box).find('> div .w2ui-form-header');
+			var header	= $(this.box).find('> div .w2ui-form-nav');
 			var toolbar	= $(this.box).find('> div .w2ui-form-toolbar');
 			var tabs	= $(this.box).find('> div .w2ui-form-tabs');
 			var page	= $(this.box).find('> div .w2ui-page');
@@ -11060,7 +11060,7 @@ var w2confirm = function (msg, title, callBack) {
 			if (eventData.isCancelled === true) return false;
 			// default actions
 			var html =  '<div>' +
-						(this.header != '' ? '<div class="w2ui-form-header">' + this.header + '</div>' : '') +
+						(this.header != '' ? '<div class="w2ui-form-nav">' + this.header + '</div>' : '') +
 						'	<div id="form_'+ this.name +'_toolbar" class="w2ui-form-toolbar"></div>' +
 						'	<div id="form_'+ this.name +'_tabs" class="w2ui-form-tabs"></div>' +
 							this.formHTML +

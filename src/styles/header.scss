@@ -1,32 +1,8 @@
 #header {
-  @include flat-black();
+  @include flat-dark();
+  border-top: solid 1px #3e4349;
 
-  // position the header
   position: absolute;
-  top: 0px; left: 0px; right: 0px;
+  top: $nav-height; left: 0px; right: 0px;
   height: $header-height;
-
-
-  .w2ui-button {
-    margin-left: 6px;
-
-    .w2ui-tb-caption {
-      cursor: pointer;
-      color: #E3E6EB;
-      font-size: 11px;
-      font-weight: bold;
-      text-transform: uppercase;
-      padding-top: 3px;
-      text-shadow: 0px -1px 0px #000;
-    }
-
-    &.over {
-      border: 1px solid transparent;
-      background: none;
-
-      & .w2ui-tb-caption {
-        color: #ffffff;
-      }
-    }
-  }
 }

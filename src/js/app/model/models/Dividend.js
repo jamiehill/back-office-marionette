@@ -8,23 +8,23 @@ function (Backbone) {
             selection1: '',
             selection2: '',
             selection3: ''
-        }
-    },{
+        },
+
 
         /**
          * @param data
          * @returns {Market}
          */
         parse : function(data){
-            var that = this;
-            that.data = data;
-            that.dividend = new Dividend();
             _.each(data, function(val, key){
-                if (_.has(that.dividend.defaults, key))
-                    that.dividend.set(key, val);
-            });
-            return that.dividend;
+                if (_.has(this.defaults, key))
+                    this.set(key, val);
+            }, this);
         }
+
+    },{
+
+
 
     });
 });

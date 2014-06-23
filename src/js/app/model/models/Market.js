@@ -4,9 +4,10 @@ define([
     'app/model/models/LinkedMarket',
     'app/model/models/Channel',
     'app/model/models/Deduction',
-    'app/model/models/Dividend'
+    'app/model/models/Dividend',
+    'common/util/CollectionUtil'
     ],
-function (Backbone, Instrument, LinkedMarket, Channel, Deduction, Dividend) {
+function (Backbone, Instrument, LinkedMarket, Channel, Deduction, Dividend, collection) {
     return Backbone.Model.extend({
 
         LinkedMarkets: null,
@@ -99,10 +100,8 @@ function (Backbone, Instrument, LinkedMarket, Channel, Deduction, Dividend) {
         getInstrument: function(id, channel){
             var channel = this.getChannel(channel || '');
             return channel.getInstrument(id);
-        }
+        },
 
-
-    },{
 
         /**
          * @param data
@@ -111,17 +110,16 @@ function (Backbone, Instrument, LinkedMarket, Channel, Deduction, Dividend) {
         parse : function(data, eventId){
             var that = this;
             that.data = data;
-            that.market = new Market();
-            that.market.eventId = eventId;
+            this.set('eventId', eventId);
 
             _.each(data, function(val, key){
                 if (_.has(that.market.defaults, key))
-                    that.market.set(key, val);
+                    that.set(key, val);
             });
 
             // Ain't no channels at this point, so create a dummy default one in next step!
             if (_.has(data, 'Channels'))
-                that.market.Channels = Market.parseChannels(data.Channels);
+                that.Channels = Market.parseChannels(data.Channels);
 
             // temporary hack to get this market's Instruments into a default Channel,
             // as as yet, no channels exist, and will not until they're
@@ -130,25 +128,27 @@ function (Backbone, Instrument, LinkedMarket, Channel, Deduction, Dividend) {
             {
                 that.channel = new Channel();
                 this.channel.eventId = eventId;
-                this.channel.marketId = that.market.id;
+                this.channel.marketId = that.id;
                 _.each(data.Instruments, function(s){
-                    that.channel.addInstrument(Instrument.parse(s, eventId, that.market.id));
+                    that.channel.addInstrument(new Instrument(s, eventId, that.id));
                 });
-                that.market.Channels = App.util.collection.factory(Channel, that.channel);
+                that.Channels = collection.factory(Channel, that.channel);
             }
 
             if (_.has(data, 'Deductions'))
-                that.market.Deductions = Market.parseDeductions(data.Deductions);
+                that.Deductions = Market.parseDeductions(data.Deductions);
 
             if (_.has(data, 'Dividends'))
-                that.market.Dividends = Market.parseDividends(data.Dividends);
+                that.Dividends = Market.parseDividends(data.Dividends);
 
             if (_.has(data, 'LinkedMarkets'))
-                that.market.LinkedMarkets = Market.parseLinkedMarket(data.LinkedMarkets);
+                that.LinkedMarkets = Market.parseLinkedMarket(data.LinkedMarkets);
 
             return that.market;
         },
 
+
+    },{
 
         /**
          *

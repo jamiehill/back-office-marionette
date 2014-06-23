@@ -7,6 +7,7 @@ define(function(require) {
          */
         bootSequence: [
             require('common/bootstrap/UrlResolver'),
+            require('app/core/ServicesConfig'),
             require('app/core/AppConfig')
         ],
 

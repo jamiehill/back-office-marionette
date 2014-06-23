@@ -2,9 +2,9 @@ define([
     'common/bootstrap/core/DeferredBase', 'ctx',
 
     'app/view/main/markets/MarketDetailsView',
-    'app/view/header/HeaderView',
-    'app/view/aside/simple/SimpleSearchView',
-    'app/view/aside/advanced/AdvancedSearchView',
+    'app/view/nav/NavBarView',
+    'app/view/search/simple/SimpleSearchView',
+    'app/view/search/advanced/AdvancedSearchView',
 
     'app/view/popups/login/LoginPopup',
 
@@ -14,7 +14,7 @@ define([
     'common/service/ApiService',
     'common/service/SocketService'
 ],
-function (DeferredBase, ctx, HeaderView, MarketDetailsView, SimpleSearchView, AdvancedSearchView, LoginPopup, EventDetailsModel, EventCache, SessionModel, ApiService, SocketService) {
+function (DeferredBase, ctx, MarketDetailsView, NavBarView, SimpleSearchView, AdvancedSearchView, LoginPopup, EventDetailsModel, EventCache, SessionModel, ApiService, SocketService) {
     return DeferredBase.extend({
         name: 'AppConfig',
 
@@ -33,9 +33,9 @@ function (DeferredBase, ctx, HeaderView, MarketDetailsView, SimpleSearchView, Ad
         manage: function(){
 
             // Arbitrary params
-            this.ctx.register('appname', String, 'Ats Back Office');
-            this.ctx.register('appid', String, 'web-sb-backoffice');
-            this.ctx.register('endpoint', String, 'http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/');
+            this.ctx.register('appname').object('Ats Back Office');
+            this.ctx.register('appid').object('web-sb-backoffice');
+            this.ctx.register('endpoint').object('http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/');
 
             // Application
             this.ctx.register("vent").object(this.app.vent);
@@ -45,7 +45,7 @@ function (DeferredBase, ctx, HeaderView, MarketDetailsView, SimpleSearchView, Ad
             // Views
             this.ctx.register('marketDetailsView', MarketDetailsView);
             this.ctx.register('simpleSearchView', SimpleSearchView);
-            this.ctx.register('headerView', HeaderView);
+            this.ctx.register('navBarView', NavBarView);
             this.ctx.register('advancedSearchView', AdvancedSearchView);
 
             // Popups

@@ -7,6 +7,11 @@ function (Marionette, Login) {
         dependencies: 'vent',
 
 
+        ready: function(){
+          this.vent.bind('session:logout')
+        },
+
+
         /**
          * @returns {boolean}
          */
@@ -29,6 +34,7 @@ function (Marionette, Login) {
          */
         clearLogin: function(){
             this.login = undefined;
+            this.vent.trigger('session:loggedout', this.login);
         },
 
 

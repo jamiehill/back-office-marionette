@@ -6,7 +6,14 @@ function (Backbone, ctx, Login, tpl) {
         dependencies: 'apiService, sessionModel',
         template: _.template(tpl),
         submitEl: '.submit',
-        cancelEl: '.clear',
+        clearEl: '.clear',
+        forceAction: true,
+
+
+        events: {
+            'click .clear': 'clear'
+        },
+
 
 
         /**
@@ -18,11 +25,19 @@ function (Backbone, ctx, Login, tpl) {
 
 
         /**
+         * Focus the username input
+         */
+        onOpened: function(){
+            this.clear();
+        },
+
+
+        /**
          * Check both fields have been populated
          */
         beforeSubmit: function(e){
-            this.user = $(this.el).find('#username').val();
-            this.pass = $(this.el).find('#password').val();
+            this.user = $('input[name=username]').val();
+            this.pass = $('input[name=password]').val();
             return $.trim(this.user).length > 0 && $.trim(this.pass).length > 0;
         },
 
@@ -34,6 +49,19 @@ function (Backbone, ctx, Login, tpl) {
             var promise = this.apiService.login(this.user, this.pass);
             promise.then(this.loginSuccess, this.loginFailure, this.loginFailure);
         },
+
+
+        /**
+         *
+         */
+        clear: function(e){
+            $('input[name=username]').val('');
+            $('input[name=password]').val('');
+            setTimeout(function(){
+                $('input[name=username]').focus();
+            }, 50);
+        },
+
 
 
         /**

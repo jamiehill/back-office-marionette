@@ -39,7 +39,7 @@
       }
       this.$el.html(this.modalEl);
       Backbone.$('body').on('keyup', this.checkKey);
-      Backbone.$('body').on('click', this.clickOutside);
+      if (!this.forceAction) Backbone.$('body').on('click', this.clickOutside);
       if (this.viewContainer) {
         this.viewContainerEl = this.modalEl.find(this.viewContainer);
         this.viewContainerEl.addClass("" + this.prefix + "-modal__views");
@@ -59,6 +59,7 @@
       this.$el.fadeIn({
         duration: 100,
         complete: function() {
+            _this.onOpened();
           return _this.modalEl.css({
             opacity: 1
           }).addClass("" + _this.prefix + "-modal--open");
@@ -66,6 +67,10 @@
       });
       return this;
     };
+
+    Modal.prototype.onOpened = function(){
+
+    },
 
     Modal.prototype.setUIElements = function() {
       var _ref;

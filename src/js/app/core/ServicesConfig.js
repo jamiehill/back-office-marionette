@@ -1,7 +1,7 @@
 define([
     'common/bootstrap/core/DeferredBase','ctx',
-    'common/command/api/Login',
-    'common/command/api/Logout'
+    '../../common/command/api/LoginCommand',
+    '../../common/command/api/LogoutCommand'
 ],
 function (DeferredBase, ctx, Login, Logout) {
     return DeferredBase.extend({
@@ -14,8 +14,9 @@ function (DeferredBase, ctx, Login, Logout) {
         init: function() {
             this.app = this.options.app;
 
-            this.app.commands.setHandler("command:login", Login);
-            this.app.commands.setHandler("command:logout", Logout);
+            this.app.commands.setHandler("command:login", Command);
+            this.app.commands.setHandler("command:logout", LogoutCommand);
+            this.app.commands.setHandler("command:recoverlogin", LogoutCommand);
 
             this.success();
         }

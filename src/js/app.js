@@ -4,12 +4,11 @@ function($, _, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
     // Main application
     var core = new Marionette.Application();
 
+
     // Core definitions
 
 
-    // Set up some default on pre-initialize.
-    // We'll use this pre-initialization hooks
-    // to do any application bootstraping required.
+    // Required bootstrapping to be added here
     core.on("initialize:before", function (options) {
         core.vent.trigger('app:log', 'App: Initializing');
         core.bootStart = moment();
@@ -22,10 +21,10 @@ function($, _, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
     });
 
 
-    // Set up some default on pre-initialize
-    // Not entirely sure what should happen here
+    // Post startup steps such as auto log in etc.
     core.on("initialize:after", function (options) {
         core.vent.trigger('app:log', 'App: Initialized');
+        core.commands.execute('command:recoverlogin');
     });
 
 

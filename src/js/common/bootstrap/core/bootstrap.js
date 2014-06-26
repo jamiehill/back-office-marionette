@@ -52,8 +52,8 @@ define(['marionette','common/bootstrap/core/DeferredBase'],
          * The sequence has completed
          */
         finish: function(){
-            console.log('Bootstrap: Complete');
-            DeferredBase.prototype.success.apply(this, arguments);
+            console.log('Bootstrap: Success');
+            this.deferred.resolve(arguments);
         }
 
     });

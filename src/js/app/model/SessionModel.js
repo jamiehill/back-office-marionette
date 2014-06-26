@@ -5,10 +5,12 @@ define([
 function (Marionette, Login) {
     return Marionette.Controller.extend({
         dependencies: 'vent',
+        autoAuthenticate: true,
 
 
         ready: function(){
-          this.vent.bind('session:logout')
+          this.vent.bind('session:logout');
+          this.recoverLogin();
         },
 
 
@@ -16,7 +18,7 @@ function (Marionette, Login) {
          * @returns {boolean}
          */
         isLoggedIn: function() {
-            return !_.isUndefined(this.login);
+            return this.store.check('session');
         },
 
 
@@ -24,8 +26,8 @@ function (Marionette, Login) {
          * @param lgn
          */
         addLogin: function(lgn){
-            this.login = new Login(lgn);
-            this.vent.trigger('session:loggedin', this.login);
+            this.store.set("session", lgn);
+            this.vent.trigger('session:loggedin', lgn);
         },
 
 
@@ -33,8 +35,20 @@ function (Marionette, Login) {
          *
          */
         clearLogin: function(){
-            this.login = undefined;
-            this.vent.trigger('session:loggedout', this.login);
+            this.store.clear("session");
+            this.vent.trigger('session:loggedout', lgn);
+        },
+
+
+        /**
+         * Recovers any session data from the sessionStorage
+         * to automatically log the user back in
+         */
+        recoverLogin: function(){
+            var localSession = this.store.get("session");
+            if (localSession != null) {
+                this.addLogin(localSession);
+            }
         },
 
 
@@ -76,6 +90,25 @@ function (Marionette, Login) {
          */
         getAccountId: function(){
             return this.isLoggedIn() ? this.login.get('accountId') : '';
-        }
+        },
+
+
+        /**
+         * Stores
+         */
+        store : {
+            get: function( name ) {
+                return sessionStorage.getItem( name );
+            },
+            set: function( name, val ){
+                return sessionStorage.setItem( name, val );
+            },
+            check: function( name ){
+                return ( sessionStorage.getItem( name ) == null );
+            },
+            clear: function( name ){
+                return sessionStorage.removeItem( name );
+            }
+        },
     });
 });

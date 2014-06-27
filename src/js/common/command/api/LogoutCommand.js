@@ -6,7 +6,7 @@ define(['ctx'], function (ctx){
             model = ctx.get('sessionModel');
 
         service.logout().done(function(resp){
-            model.clearLogin();
+            model.clearSession();
         });
     }
 });

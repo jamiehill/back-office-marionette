@@ -27,6 +27,7 @@ require.config({
         'ctx'                   : { exports: 'ctx' },
         'backbone'              : { exports: 'Backbone', deps: ['underscore', 'jquery'] },
         'marionette'            : { exports: 'Marionette', deps: ['underscore', 'backbone', 'jquery'] },
+        'backbone.wreqr'        : { exports: 'Wreqr', deps: ['marionette'] },
         'modal'                 : { exports: 'Modal', deps: ['underscore', 'backbone', 'jquery'] },
         'jasmine'               : { exports: 'jasmine' },
         'underscore'            : { exports: '_' },

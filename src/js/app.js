@@ -24,7 +24,6 @@ function($, _, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
     // Post startup steps such as auto log in etc.
     core.on("initialize:after", function (options) {
         core.vent.trigger('app:log', 'App: Initialized');
-        core.commands.execute('command:recoverlogin');
     });
 
 

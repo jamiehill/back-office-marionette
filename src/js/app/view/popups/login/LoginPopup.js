@@ -3,7 +3,7 @@ function (Backbone, ctx, Login, tpl) {
     return Backbone.Modal.extend({
 
 
-        dependencies: 'apiService, sessionModel',
+        dependencies: 'apiService, sessionModel, commands',
         template: _.template(tpl),
         submitEl: '.submit',
         clearEl: '.clear',
@@ -46,8 +46,8 @@ function (Backbone, ctx, Login, tpl) {
          *
          */
         submit: function(e){
-            var promise = this.apiService.login(this.user, this.pass);
-            promise.then(this.loginSuccess, this.loginFailure, this.loginFailure);
+            this.commands.execute('command:login', this.user, this.pass)
+                .then(this.loginSuccess, this.loginFailure, this.loginFailure);
         },
 
 
@@ -72,7 +72,6 @@ function (Backbone, ctx, Login, tpl) {
             if (_.has(e, 'Error'))
                 this.loginFailure(e);
             else if (_.has(e, 'Login')){
-                this.sessionModel.addLogin(e.Login);
                 this.close();
             }
         },

@@ -1,16 +1,28 @@
-define([
-    'marionette',
-    'app/model/models/session/Login'
-],
-function (Marionette, Login) {
-    return Marionette.Controller.extend({
+define(['backbone'],
+function (Backbone) {
+    return Backbone.Model.extend({
+
+
         dependencies: 'vent',
-        autoAuthenticate: true,
+        defaults: {
+            accountId: '',
+            username: '',
+            password: '',
+            sessionToken: '',
+            accountBalance: {
+                value: '',
+                currency: ''
+            }
+        },
 
 
+        /**
+         * Once dependencies have been satisfied, do a 'recovery'
+         * to get current authenticated status, thereby launching
+         * login popup should a valid session not be available
+         */
         ready: function(){
-          this.vent.bind('session:logout');
-          this.recoverLogin();
+            this.recoverSession();
         },
 
 
@@ -20,13 +32,17 @@ function (Marionette, Login) {
         isLoggedIn: function() {
             return this.store.check('session');
         },
+        isNotLoggedIn: function() {
+            return !this.isLoggedIn();
+        },
 
 
         /**
          * @param lgn
          */
-        addLogin: function(lgn){
-            this.store.set("session", lgn);
+        storeSession: function(lgn){
+            this.set(lgn);
+            this.store.update(this);
             this.vent.trigger('session:loggedin', lgn);
         },
 
@@ -34,9 +50,9 @@ function (Marionette, Login) {
         /**
          *
          */
-        clearLogin: function(){
-            this.store.clear("session");
-            this.vent.trigger('session:loggedout', lgn);
+        clearSession: function(){
+            this.store.clear();
+            this.vent.trigger('session:loggedout');
         },
 
 
@@ -44,11 +60,11 @@ function (Marionette, Login) {
          * Recovers any session data from the sessionStorage
          * to automatically log the user back in
          */
-        recoverLogin: function(){
+        recoverSession: function(){
             var localSession = this.store.get("session");
-            if (localSession != null) {
-                this.addLogin(localSession);
-            }
+            if (localSession != null)
+                this.storeSession(JSON.parse(localSession));
+            else this.clearSession();
         },
 
 
@@ -56,7 +72,7 @@ function (Marionette, Login) {
          * @returns {*}
          */
         getBalance: function(){
-            return this.isLoggedIn() ? this.login.get('accountBalance') : '0';
+            return this.isLoggedIn() ? this.get('accountBalance') : '0';
         },
 
 
@@ -65,7 +81,8 @@ function (Marionette, Login) {
          */
         setBalance: function(bln){
             if (!this.isLoggedIn()) return;
-            this.login.set('accountBalance', bln);
+            this.set('accountBalance', bln);
+            this.store.update(this);
         },
 
 
@@ -73,7 +90,7 @@ function (Marionette, Login) {
          * @returns {*}
          */
         getUsername: function(){
-            return this.isLoggedIn() ? this.login.get('username') : '';
+            return this.isLoggedIn() ? this.get('username') : '';
         },
 
 
@@ -81,7 +98,7 @@ function (Marionette, Login) {
          * @returns {*}
          */
         getSessionToken: function(){
-            return this.isLoggedIn() ? this.login.get('sessionToken') : '';
+            return this.isLoggedIn() ? this.get('sessionToken') : '';
         },
 
 
@@ -89,7 +106,7 @@ function (Marionette, Login) {
          * @returns {*}
          */
         getAccountId: function(){
-            return this.isLoggedIn() ? this.login.get('accountId') : '';
+            return this.isLoggedIn() ? this.get('accountId') : '';
         },
 
 
@@ -97,18 +114,19 @@ function (Marionette, Login) {
          * Stores
          */
         store : {
-            get: function( name ) {
-                return sessionStorage.getItem( name );
+            get: function() {
+                return sessionStorage.getItem('session');
             },
-            set: function( name, val ){
-                return sessionStorage.setItem( name, val );
+            check: function(){
+                return sessionStorage.getItem('session') != null;
             },
-            check: function( name ){
-                return ( sessionStorage.getItem( name ) == null );
+            clear: function(){
+                return sessionStorage.removeItem('session');
             },
-            clear: function( name ){
-                return sessionStorage.removeItem( name );
+            update: function(scope){
+                var json = scope.changed;
+                sessionStorage.setItem("session", JSON.stringify(json));
             }
-        },
+        }
     });
 });

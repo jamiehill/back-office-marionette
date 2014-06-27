@@ -8,7 +8,7 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          *
          */
         initialize: function(){
-            _.bindAll(this, 'onClick');
+            _.bindAll(this, 'onClick', 'onSessionChanged', 'showPopup');
         },
 
 
@@ -27,7 +27,6 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
             this.modalEl = $('body').find('#modals');
             this.loginPopup = ctx.get('loginPopup');
             this.initToolbar();
-            this.onSessionChanged();
         },
 
 
@@ -58,7 +57,7 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          */
         onClick: function(e, scope){
             if (e.target == 'login') {
-                $(this.modalEl).html(this.loginPopup.render().el);
+                this.showPopup();
 
             } else if (e.target == 'logout'){
                 this.commands.execute('command:logout');
@@ -72,12 +71,25 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          * @param e
          */
         onSessionChanged: function(lgn){
-            var loggedOut = _.isUndefined(lgn);
-            w2ui['appToolbar'].set('login',         { hidden: !loggedOut });
-            w2ui['appToolbar'].set('logout',        { hidden: loggedOut });
-            w2ui['appToolbar'].set('searchPunters', { hidden: loggedOut });
-            w2ui['appToolbar'].set('translations',  { hidden: loggedOut });
-            w2ui['appToolbar'].refresh();
+            this.loggedOut = _.isUndefined(lgn);
+            if (this.loggedOut) this.showPopup();
+
+            if (w2ui['appToolbar']){
+                w2ui['appToolbar'].set('login',         { hidden: !this.loggedOut });
+                w2ui['appToolbar'].set('logout',        { hidden: this.loggedOut });
+                w2ui['appToolbar'].set('searchPunters', { hidden: this.loggedOut });
+                w2ui['appToolbar'].set('translations',  { hidden: this.loggedOut });
+                w2ui['appToolbar'].refresh();
+            }
+        },
+
+
+        /**
+         * Show the login popup
+         */
+        showPopup: function(){
+            if (_.isUndefined(this.loginPopup)) return;
+            $(this.modalEl).html(this.loginPopup.render().el);
         },
 
 
@@ -87,10 +99,10 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
         items: function(scope){
             return [
                 { type: 'html',  id: 'logo', caption: '',html: '<img src="./img/amelco_sm.png" style="padding-left: 5px; padding-top: 3px"></img>' },
-                { type: 'button',  id: 'login', caption: 'Login', hint: 'Login', hidden:false },
-                { type: 'button',  id: 'logout', caption: 'Logout', hint: 'Logout', hidden:false },
-                { type: 'button',  id: 'searchPunters', caption: 'Search Punters', hint: 'Search Punters', hidden:false },
-                { type: 'button',  id: 'translations', caption: 'Translations', hint: 'Translations', hidden:false }
+                { type: 'button',  id: 'login', caption: 'Login', hint: 'Login', hidden:!this.loggedOut },
+                { type: 'button',  id: 'logout', caption: 'Logout', hint: 'Logout', hidden:this.loggedOut },
+                { type: 'button',  id: 'searchPunters', caption: 'Search Punters', hint: 'Search Punters', hidden:this.loggedOut },
+                { type: 'button',  id: 'translations', caption: 'Translations', hint: 'Translations', hidden:this.loggedOut }
             ];
         }
     });

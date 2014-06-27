@@ -16,16 +16,14 @@ function (Marionette, Wreqr, DeferredBase) {
                 command  = callback.prototype;
                 command.name = name;
 
-            var promise = command._execute.apply(command, args),
-                that = this;
-
-            if (promise != undefined) {
-                return promise.then(
-                    function(resp){ command._success.apply(command, resp) },
-                    function(resp){ command._error.apply(command, resp) }
-                );
+            var promise = command._execute.apply(command, args);
+            if (!_.isUndefined(promise)) {
+                return promise.then(function(resp){
+                    var result = _.has(resp, 'Error') ?
+                        '_error' : '_success';
+                    command[result].apply(command, [resp]);
+                },function(er){ command._error.apply(command, [er]); });
             }
-            else command.close();
         } else {
             this.storage.addCommand(name, args);
         }

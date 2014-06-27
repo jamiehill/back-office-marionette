@@ -78,7 +78,7 @@ function(_, Backbone) {
                 var target = { request: request, method: "get", args:[] };
 
                 // if is string, the options should only be a method type such as 'POST'
-                if (_.isString(options))
+                if (_.isString(options) && !_.blank(options))
                     target.method = options.toUpperCase();
 
                 // if is an array, assumed to be an array of required arguments names
@@ -150,10 +150,10 @@ function(_, Backbone) {
                 url     : this.url.replace(/\/$/, "") + '/' + target.request,
                 data    : this.getParams(target, data),
                 success : function (resp, status, xhr) {
-                    deferred.resolve(resp);
+                    deferred.resolveWith(this, [resp]);
                 },
                 error   : function (xhr, status, error) {
-                   deferred.reject(error, xhr);
+                   deferred.rejectWith(this, [error]);
                 }
             }, target.method);
         },

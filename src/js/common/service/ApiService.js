@@ -23,9 +23,11 @@ define(function (require) {
             },
 
             logout: {
-                method: 'post'
+                method: 'post',
+                args: [
+                    { sessionToken: { attr: 'sessionToken' }}
+                ]
             },
-
 
             keepAlive: {
                 args: [
@@ -52,7 +54,7 @@ define(function (require) {
                 ]
             },
 
-            sportsRootNodes: 'get',
+            sportsRootNodes: '',
             sportsNode: [ 'nodeId' ],
             eventSearch: {
                 args: [

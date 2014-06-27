@@ -33,7 +33,7 @@ function(_, Backbone, Marionette) {
          */
 
         initialize: function(){
-            _.bindAll(this, '_execute', '_success', '_error');
+            _.bindAll(this, 'execute', 'success', 'error', '_execute', '_success', '_error');
         },
 
 
@@ -53,17 +53,15 @@ function(_, Backbone, Marionette) {
         },
 
 
-        _success : function (resp, status, xhr) {
+        _success : function (resp) {
             console.log('Command: '+this.name+':success');
-            this.success.apply(this, resp);
-            this.close();
+            this.success.apply(this, [resp]);
         },
 
 
-        _error: function (xhr, status, error) {
+        _error: function (er) {
             console.log('Command: '+this.name+':error');
-            this.error.apply(this, error);
-            this.close();
+            this.error.apply(this, [er]);
         }
     });
 });

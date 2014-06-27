@@ -1,5 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'marionette', 'moment', 'w2ui', 'modal', 'app/core/Bootstrap', 'app/view/AppView'],
-function($, _, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
+define(['jquery', 'underscore', 'underscore.string', 'backbone', 'marionette', 'moment', 'w2ui', 'modal', 'app/core/Bootstrap', 'app/view/AppView'],
+function($, _, string, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
 
     // Main application
     var core = new Marionette.Application();

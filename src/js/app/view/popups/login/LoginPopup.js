@@ -1,13 +1,14 @@
 define(['backbone', 'ctx', 'app/model/models/session/Login', 'text!app/view/popups/login/LoginPopup.tpl.html'],
 function (Backbone, ctx, Login, tpl) {
     return Backbone.Modal.extend({
+        template: _.template(tpl),
 
 
         dependencies: 'apiService, sessionModel, commands',
-        template: _.template(tpl),
         submitEl: '.submit',
         clearEl: '.clear',
-        forceAction: true,
+        clickOutside: false,
+        regionEnabled: true,
 
 
         events: {
@@ -69,11 +70,7 @@ function (Backbone, ctx, Login, tpl) {
          * @param e
          */
         loginSuccess: function(e){
-            if (_.has(e, 'Error'))
-                this.loginFailure(e);
-            else if (_.has(e, 'Login')){
-                this.close();
-            }
+            this.close();
         },
 
 

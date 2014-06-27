@@ -1,12 +1,8 @@
-define(['ctx'], function (ctx){
-    return function(){
-        console.log('Command: command:logout');
-
-        var service = ctx.get('apiService'),
-            model = ctx.get('sessionModel');
-
-        service.logout().done(function(resp){
-            model.clearSession();
-        });
-    }
+define(['backbone.command', 'ctx'], function (Command, ctx){
+    return Command.extend({
+        execute: function(){
+            ctx.get('sessionModel').clearSession();
+            return ctx.get('apiService').logout();
+        }
+    });
 });

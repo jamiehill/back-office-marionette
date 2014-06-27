@@ -25,7 +25,6 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          */
         onShow: function() {
             this.modalEl = $('body').find('#modals');
-            this.loginPopup = ctx.get('loginPopup');
             this.initToolbar();
         },
 
@@ -88,8 +87,8 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          * Show the login popup
          */
         showPopup: function(){
-            if (_.isUndefined(this.loginPopup)) return;
-            $(this.modalEl).html(this.loginPopup.render().el);
+            var popup = ctx.get('loginPopup');
+            $(this.modalEl).html(popup.render().el);
         },
 
 

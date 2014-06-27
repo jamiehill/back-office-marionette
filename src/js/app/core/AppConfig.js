@@ -23,7 +23,6 @@ function (DeferredBase, ctx, MarketDetailsView, NavBarView, SimpleSearchView, Ad
          */
         init: function() {
             this.app = this.options.app;
-            this.ctx = ctx;
             this.manage();
         },
 
@@ -33,32 +32,32 @@ function (DeferredBase, ctx, MarketDetailsView, NavBarView, SimpleSearchView, Ad
         manage: function(){
 
             // Arbitrary params
-            this.ctx.register('appname').object('Ats Back Office');
-            this.ctx.register('appid').object('web-sb-backoffice');
-            this.ctx.register('endpoint').object('http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/');
+            ctx.register('appname').object('Ats Back Office');
+            ctx.register('appid').object('web-sb-backoffice');
+            ctx.register('endpoint').object('http://sportsbook-dev.amelco.co.uk/sb-backoffice/v1/api/');
 
             // Application
-            this.ctx.register("vent").object(this.app.vent);
-            this.ctx.register("reqres").object(this.app.reqres);
-            this.ctx.register("commands").object(this.app.commands);
+            ctx.register("vent").object(this.app.vent);
+            ctx.register("reqres").object(this.app.reqres);
+            ctx.register("commands").object(this.app.commands);
 
             // Views
-            this.ctx.register('marketDetailsView', MarketDetailsView);
-            this.ctx.register('simpleSearchView', SimpleSearchView);
-            this.ctx.register('navBarView', NavBarView);
-            this.ctx.register('advancedSearchView', AdvancedSearchView);
+            ctx.register('marketDetailsView', MarketDetailsView);
+            ctx.register('simpleSearchView', SimpleSearchView);
+            ctx.register('navBarView', NavBarView);
+            ctx.register('advancedSearchView', AdvancedSearchView);
 
             // Popups
-            this.ctx.register('loginPopup', LoginPopup);
+            ctx.register("loginPopup", LoginPopup).strategy(di.strategy.proto); // new instance each time
 
             // Models
-            this.ctx.register('eventModel', EventDetailsModel, {vent: this.app.vent});
-            this.ctx.register('eventCache', EventCache);
-            this.ctx.register('sessionModel', SessionModel, {vent: this.app.vent});
+            ctx.register('eventModel', EventDetailsModel, {vent: this.app.vent});
+            ctx.register('eventCache', EventCache);
+            ctx.register('sessionModel', SessionModel, {vent: this.app.vent});
 
             // Services
-            this.ctx.register('apiService', ApiService, {url:this.app.endpoint});
-            this.ctx.register('socketService', SocketService);
+            ctx.register('apiService', ApiService, {url:this.app.endpoint});
+            ctx.register('socketService', SocketService);
 
             this.construct();
         },
@@ -69,10 +68,10 @@ function (DeferredBase, ctx, MarketDetailsView, NavBarView, SimpleSearchView, Ad
          */
         construct: function(){
             var that = this;
-            _.each(_.keys(this.ctx.map), function(key){
+            _.each(_.keys(ctx.map), function(key){
                 console.log('Bootstrap: '+that.name+' - managed: '+key);
             });
-            this.ctx.initialize();
+            ctx.initialize();
             this.success(ctx);
         }
     });

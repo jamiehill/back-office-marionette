@@ -1,4 +1,4 @@
-define(['common/framework/command/Backbone.Command', 'ctx'], function (Command, ctx){
+define(['backbone.command', 'ctx'], function (Command, ctx){
     return Command.extend({
 
         /**
@@ -7,10 +7,8 @@ define(['common/framework/command/Backbone.Command', 'ctx'], function (Command, 
          * @returns {*}
          */
         execute: function(user, pass){
-            console.log('Command: command:login');
-            var service = ctx.get('apiService'),
-                promise = service.login(user, pass);
-            return promise.then(this.success, this.failure);
+            var service = ctx.get('apiService');
+            return service.login(user, pass);
         },
 
 
@@ -18,10 +16,7 @@ define(['common/framework/command/Backbone.Command', 'ctx'], function (Command, 
          * @param resp
          */
         success: function(resp){
-            if (_.has(resp, 'Error'))
-                this.loginFailure(resp);
-
-            else if (_.has(resp, 'Login')){
+            if (_.has(resp, 'Login')){
                 ctx.get('sessionModel').storeSession(resp.Login);
             }
         }

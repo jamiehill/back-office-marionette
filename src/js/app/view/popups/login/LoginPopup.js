@@ -7,7 +7,7 @@ function (Backbone, ctx, Login, tpl) {
         dependencies: 'apiService, sessionModel, commands',
         submitEl: '.submit',
         clearEl: '.clear',
-        clickOutside: false,
+        clickOutsideEnabled: false,
         regionEnabled: true,
 
 
@@ -48,7 +48,8 @@ function (Backbone, ctx, Login, tpl) {
          */
         submit: function(e){
             this.commands.execute('command:login', this.user, this.pass)
-                .then(this.loginSuccess, this.loginFailure, this.loginFailure);
+                .done(this.loginSuccess)
+                .fail(this.loginFailure);
         },
 
 
@@ -69,7 +70,8 @@ function (Backbone, ctx, Login, tpl) {
          * Login successful.  Close popup
          * @param e
          */
-        loginSuccess: function(e){
+        loginSuccess: function(data, textStatus, jqXHR){
+            var args = arguments;
             this.close();
         },
 
@@ -78,8 +80,9 @@ function (Backbone, ctx, Login, tpl) {
          * Login failed - show some feedback
          * @param e
          */
-        loginFailure: function(e){
-            var error = e.Error.value,
+        loginFailure: function(jqXHR, textStatus, errorThrown){
+            var args = arguments;
+            var error = args.Error.value,
                 feedback = $(this.el).find('#feedback');
             feedback.html(error);
         }

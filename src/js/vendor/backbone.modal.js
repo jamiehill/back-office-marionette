@@ -19,7 +19,7 @@
       this.triggerView = __bind(this.triggerView, this);
       this.clickOutside = __bind(this.clickOutside, this);
       this.checkKey = __bind(this.checkKey, this);
-      this.clickOutside = true;
+      this.clickOutsideEnabled = true;
       this.args = Array.prototype.slice.apply(arguments);
       Backbone.View.prototype.constructor.apply(this, this.args);
       this.setUIElements();
@@ -40,7 +40,7 @@
       }
       this.$el.html(this.modalEl);
       Backbone.$('body').on('keyup', this.checkKey);
-      if (this.clickOutside) Backbone.$('body').on('click', this.clickOutside);
+      if (this.clickOutsideEnabled) Backbone.$('body').on('click', this.clickOutside);
       if (this.viewContainer) {
         this.viewContainerEl = this.modalEl.find(this.viewContainer);
         this.viewContainerEl.addClass("" + this.prefix + "-modal__views");

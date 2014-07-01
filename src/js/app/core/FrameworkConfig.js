@@ -1,5 +1,5 @@
-define(['marionette', 'backbone.wreqr', 'common/bootstrap/core/DeferredBase'],
-function (Marionette, Wreqr, DeferredBase) {
+define(['marionette', 'backbone.wreqr', 'backbone.command', 'common/bootstrap/core/DeferredBase'],
+function (Marionette, Wreqr, Command, DeferredBase) {
 
 
     /**
@@ -19,10 +19,14 @@ function (Marionette, Wreqr, DeferredBase) {
             var promise = command._execute.apply(command, args);
             if (!_.isUndefined(promise)) {
                 return promise.then(function(resp){
-                    var result = _.has(resp, 'Error') ?
+                    var action = _.has(resp, 'Error') ?
                         '_error' : '_success';
-                    command[result].apply(command, [resp]);
-                },function(er){ command._error.apply(command, [er]); });
+                    Command.prototype[action].apply(command, arguments);
+
+                },function(er){
+//                    command.prototype._error(arguments);
+                    Command.prototype._error.apply(command, arguments);
+                });
             }
         } else {
             this.storage.addCommand(name, args);

@@ -55,13 +55,13 @@ function(_, Backbone, Marionette) {
 
         _success : function (resp) {
             console.log('Command: '+this.name+':success');
-            this.success.apply(this, [resp]);
+            this.success.call(this, resp);
         },
 
 
         _error: function (er) {
             console.log('Command: '+this.name+':error');
-            this.error.apply(this, [er]);
+            this.error.call(this, er);
         }
     });
 });

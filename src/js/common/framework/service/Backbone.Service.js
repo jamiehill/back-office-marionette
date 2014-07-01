@@ -128,18 +128,14 @@ function(_, Backbone) {
         createMethod: function (target) {
             var scope = this;
             this[target.request] = function () {
-                var deferred     = $.Deferred(),
-                    options      = scope.createOptions(target, arguments, deferred),
+                var options      = scope.createOptions(target, arguments),
                     method       = scope.methodMap[target.method];
-                Backbone.sync(method, scope, options);
-                return deferred.promise(scope);
+                return Backbone.sync(method, scope, options);
             }
         },
 
 
         /**
-         * A pretty ugly method!
-         *
          * @param target
          * @param data
          * @param deferred
@@ -148,13 +144,15 @@ function(_, Backbone) {
         createOptions: function(target, data, deferred){
             return this.addHeaders({
                 url     : this.url.replace(/\/$/, "") + '/' + target.request,
-                data    : this.getParams(target, data),
-                success : function (resp, status, xhr) {
-                    deferred.resolveWith(this, [resp]);
-                },
-                error   : function (xhr, status, error) {
-                   deferred.rejectWith(this, [error]);
-                }
+                data    : this.getParams(target, data)
+//                success : function (data, status, xhr) {
+//                    var action = _.has(data, 'Error') ?
+//                        'reject' : 'resolve';
+//                    deferred[action](arguments);
+//                },
+//                error   : function (xhr, status, err) {
+//                    deferred.reject(arguments);
+//                }
             }, target.method);
         },
 

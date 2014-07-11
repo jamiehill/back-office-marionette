@@ -6,17 +6,12 @@ define(['marionette','common/bootstrap/core/DeferredBase'],
 
 
         /**
-         * Initialize the bootstrap sequence
-         * @param options
+         * Override to add defered functionality
          */
-        initialize:function (options) {
-            DeferredBase.prototype.initialize.apply(this, options);
+        init: function(){
             _.bindAll(this, 'next', 'fail', 'finish');
-
-            this.options = options;
-            this.sequence = options.boot || [];
-            this.failOnError = options.failOnError || true;
-
+            this.sequence = this.options.boot || [];
+            this.failOnError = this.options.failOnError || true;
             this.next();
         },
 

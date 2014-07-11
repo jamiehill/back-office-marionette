@@ -49,14 +49,6 @@ function($, _, string, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, App
 
 
     // Set up the display region
-//    core.addRegions({
-//        container: {
-//            selector: '#container',
-//            regionType: NoWrapRegion
-//        }
-//    });
-
-    // Set up the display region
     core.addRegions({
         container: "#container"
     });

@@ -1,5 +1,5 @@
-define(['backbone', 'ctx', 'app/model/models/session/Login', 'text!app/view/popups/login/LoginPopup.tpl.html'],
-function (Backbone, ctx, Login, tpl) {
+define(['backbone', 'modal', 'ctx', 'app/model/models/session/Login', 'text!app/view/popups/login/LoginPopup.tpl.html'],
+function (Backbone, Modal, ctx, Login, tpl) {
     return Backbone.Modal.extend({
         template: _.template(tpl),
 

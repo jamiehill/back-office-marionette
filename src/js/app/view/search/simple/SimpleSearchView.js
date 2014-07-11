@@ -20,7 +20,7 @@ function (Marionette, moment, tpl, filterTpl) {
          *
          */
         onShow: function(){
-            _.bindAll(this, 'onSearch', 'onSelect');
+            _.bindAll(this, 'onSearch', 'onSelect', 'onUnselect');
 
             var template = _.template(tpl, {});
             this.$el.html(template);

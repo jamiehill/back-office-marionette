@@ -29,6 +29,14 @@ function(_, Backbone, Marionette) {
 
 
         /**
+         *
+         */
+        always: function(){
+
+        },
+
+
+        /**
          * Internal methods ------------------------------
          */
 
@@ -62,6 +70,11 @@ function(_, Backbone, Marionette) {
         _error: function (er) {
             console.log('Command: '+this.name+':error');
             this.error.call(this, er);
+        },
+
+
+        _always: function () {
+            this.always.call(this, arguments);
         }
     });
 });

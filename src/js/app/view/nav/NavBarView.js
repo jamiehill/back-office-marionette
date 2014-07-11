@@ -9,6 +9,7 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          */
         initialize: function(){
             _.bindAll(this, 'onClick', 'onSessionChanged', 'showPopup');
+            this.modalEl = $('body').find('#modals');
         },
 
 
@@ -24,7 +25,6 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          *
          */
         onShow: function() {
-            this.modalEl = $('body').find('#modals');
             this.initToolbar();
         },
 

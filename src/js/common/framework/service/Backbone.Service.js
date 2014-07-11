@@ -128,9 +128,11 @@ function(_, Backbone) {
         createMethod: function (target) {
             var scope = this;
             this[target.request] = function () {
-                var options      = scope.createOptions(target, arguments),
+                var deferred     = $.Deferred(),
+                    options      = scope.createOptions(target, arguments, deferred),
                     method       = scope.methodMap[target.method];
-                return Backbone.sync(method, scope, options);
+                Backbone.sync(method, scope, options);
+                return deferred.promise(scope);
             }
         },
 
@@ -142,18 +144,23 @@ function(_, Backbone) {
          * @returns {{url: string, data: *, success: success, error: error}}
          */
         createOptions: function(target, data, deferred){
-            return this.addHeaders({
+            var options = this.addHeaders({
                 url     : this.url.replace(/\/$/, "") + '/' + target.request,
-                data    : this.getParams(target, data)
-//                success : function (data, status, xhr) {
-//                    var action = _.has(data, 'Error') ?
-//                        'reject' : 'resolve';
-//                    deferred[action](arguments);
-//                },
-//                error   : function (xhr, status, err) {
-//                    deferred.reject(arguments);
-//                }
+                data    : this.getParams(target, data),
+                success : function (data, status, xhr) {
+                    var action = _.has(data, 'Error') ?
+                        'reject' : 'resolve';
+                    deferred[action](data);
+                },
+                error   : function (xhr, status, err) {
+//                    deferred.reject(err);
+                }
             }, target.method);
+
+            if (target.method == 'GETJSON')
+                _.extend(options, {dataType: 'json'});
+
+            return options;
         },
 
 

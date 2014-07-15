@@ -6,16 +6,18 @@ module.exports = function(config) {
 
 
         basePath: '',
-        frameworks: ['jasmine', 'requirejs', 'chai-sinon'],
+
+        // available chai, chai-as-promised, chai-jquery, sinon-chai, chai-things
+        frameworks: ['requirejs', 'jasmine', 'chai', 'sinon-chai'],
 
         // list files / patterns to load in browser
         files: [
+            'test/test-config.js',                                  // include requirejs test config
+
             {pattern: 'src/js/vendor/**/*.js', included: false},    // include all vendor js
             {pattern: 'src/js/**/*.js', included: false},           // include application js
             {pattern: 'src/js/**/*.tpl.html', included: false},     // include application templates
-            {pattern: 'test/**/*.spec.js', included: false},        // include all specs
-
-            'test/test-config.js'                                   // include requirejs test config
+            {pattern: 'test/**/*.spec.js', included: false}         // include all specs
         ],
 
         // exclude vendor specs and requirejs config
@@ -28,15 +30,16 @@ module.exports = function(config) {
         reporters: ['spec'],
         plugins: [
             'karma-jasmine',
-            'karma-chai-sinon',
+//            'karma-chai',
             'karma-phantomjs-launcher',
-            'karma-chrome-launcher',
+            'karma-chai-plugins',
+//            'karma-chrome-launcher',
             'karma-spec-reporter',
             'karma-requirejs'
         ],
 
 
-        browsers: ['PhantomJS_Custom'],
+        browsers: ['PhantomJS'],
         customLaunchers: {
             PhantomJS_Custom: {
                 base: 'PhantomJS',
@@ -52,7 +55,7 @@ module.exports = function(config) {
 
         port: 9876,
         colors: true,
-        logLevel: config.LOG_DEBUG,
+        logLevel: config.LOG_INFO,
         autoWatch: true,
         singleRun: false
 

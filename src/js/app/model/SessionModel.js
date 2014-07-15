@@ -5,13 +5,13 @@ function (Backbone) {
 
         dependencies: 'vent',
         defaults: {
-            accountId: '',
-            username: '',
-            password: '',
-            sessionToken: '',
+            accountId: '-',
+            username: '-',
+            password: '-',
+            sessionToken: '-',
             accountBalance: {
-                value: '',
-                currency: ''
+                value: '0',
+                currency: '£'
             }
         },
 
@@ -72,7 +72,7 @@ function (Backbone) {
          * @returns {*}
          */
         getBalance: function(){
-            return this.isLoggedIn() ? this.get('accountBalance') : '0';
+            return this.get('accountBalance').value;
         },
 
 
@@ -90,7 +90,7 @@ function (Backbone) {
          * @returns {*}
          */
         getUsername: function(){
-            return this.isLoggedIn() ? this.get('username') : '';
+            return this.get('username');
         },
 
 
@@ -98,7 +98,7 @@ function (Backbone) {
          * @returns {*}
          */
         getSessionToken: function(){
-            return this.isLoggedIn() ? this.get('sessionToken') : '';
+            return this.get('sessionToken');
         },
 
 
@@ -106,7 +106,7 @@ function (Backbone) {
          * @returns {*}
          */
         getAccountId: function(){
-            return this.isLoggedIn() ? this.get('accountId') : '';
+            return this.get('accountId');
         },
 
 

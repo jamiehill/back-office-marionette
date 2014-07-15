@@ -1,13 +1,13 @@
 define(['app'], function(App){
 
-    xdescribe("app.spec.js", function() {
-
+    describe("- app.spec.js\n", function() {
 
         // Setup/teardown ------------------------------------------
 
 
         beforeEach(function(){
-
+            spyOn(App.core, 'trigger');
+            App.start();
         });
 
         afterEach(function(){
@@ -23,40 +23,36 @@ define(['app'], function(App){
                 expect(App).toBeDefined();
             });
 
-            it("should initialise Marionette.Application", function() {
+            xit("should initialise Marionette.Application", function() {
                 expect(App.core).toBeDefined();
             });
         });
 
 
         describe("during startup", function() {
-            it("should dispatch appropriate events", function() {
-                App.start();
-//                eventSpyHandler('initialize:before', {name:'jamie'});
-//                eventSpyHandler('initialize:after', {age:30});
+            it("should trigger initialize:before", function() {
+                expect(App.core.trigger).toHaveBeenCalledWith('initialize:before', undefined );
             });
-
+            it("should trigger initialize:after", function() {
+                expect(App.core.trigger).toHaveBeenCalledWith('initialize:after', undefined);
+            });
+            it("should trigger app:start", function() {
+                expect(App.core.trigger).toHaveBeenCalledWith('start', undefined);
+            });
         });
 
-        var eventSpyHandler = function(event, opts){
-            var spy = sinon.spy();
-            App.core.on(event, spy);
-//            spy.should.have.been.called();
-            spy.should.have.been.called.with(opts);
-        }
 
-
-        describe("when initialized", function() {
+        xdescribe("when initialized", function() {
             it("should show bootStart time", function() {
                 expect(App.core.bootStart).toBeDefined();
             });
 
             it("should show bootFinish time", function() {
-                expect(App.core.bootFinish).toBe('Ats Back Office');
+                expect(App.core.bootFinish).toBeDefined();
             });
 
             it("should show bootDuration", function() {
-                expect(App.core.bootDuration).toBe('Ats Back Office');
+                expect(App.core.bootDuration).toBeDefined();
             });
         });
 

@@ -2,7 +2,12 @@ define(['backbone', 'app/model/models/Instrument'],
 function (Backbone, Instrument) {
     return Backbone.Model.extend({
 
+
         defaults: {
+            name: 'MANAGEMENT',
+            title: 'Account Management',
+            clazz: 'accountManagement',
+
             accountId: 'K8-01-101-1234',
             username: 'jhchill765',
             login: 'jhchill666',
@@ -16,6 +21,7 @@ function (Backbone, Instrument) {
             currency: 'GBP',
             pt: 100,
             vc: 50,
+            accounts: null,
             betLimit: 999,
             minStake: 0,
             balance: 100

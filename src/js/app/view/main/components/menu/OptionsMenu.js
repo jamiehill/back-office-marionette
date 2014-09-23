@@ -54,7 +54,7 @@ define([
 
                 var iconId = e.target.dataset.id;
                 if (!$menu.hasClass(iconId))
-                    this.onClose();
+                    this.onDestroy();
             },
 
 
@@ -70,14 +70,14 @@ define([
                     id = $(e.target).attr('data-id'),
                     isMarket = $(e.target).attr('data-is-market');
                 this.trigger('select', {option: option, id:id, isMarket:isMarket});
-                this.onClose();
+                this.onDestroy();
             },
 
 
             /**
              * Internal close
              */
-            onClose: function(e){
+            onDestroy: function(e){
                 if (e) e.stopImmediatePropagation();
                 $('.optionsMenuPopup').remove();
                 this.undelegateEvents();

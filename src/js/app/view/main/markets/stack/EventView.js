@@ -16,7 +16,7 @@ function (Backbone, Marionette, tpl,
     /**
      * Base view class for all sports
      */
-    var EventView = Marionette.Layout.extend({
+    var EventView = Marionette.LayoutView.extend({
 
         tagName: 'li',
         id: function(){ return this.model.id; },

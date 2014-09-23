@@ -4,7 +4,7 @@
 define(['marionette', 'ctx', 'text!app/view/main/markets/MarketsView.tpl.html', 'app/view/search/SearchView'],
 
     function (Marionette, ctx, tpl, SearchView) {
-        return Marionette.Layout.extend({
+        return Marionette.LayoutView.extend({
 
 
             template: _.template(tpl),

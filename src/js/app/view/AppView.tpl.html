@@ -1,4 +1,30 @@
-<nav id="nav" role="banner"></nav>
-<header id="header" role="tools"></header>
-<section id="main" role="main"></section>
-<footer id="footer"></footer>
+<header id="header-main" class="include">
+
+    <nav>
+        <div class="nav-global">
+            <a href="#">
+                <h1>BetEast</h1>
+            </a>
+        </div>
+    </nav>
+
+    <div class="acc-user-details">
+        <a href="#" class="button submit" type="submit" id="loginBtn">Login</a>
+    </div>
+
+</header>
+
+<div class="container-main">
+
+<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all ui-tabs-vertical ui-helper-clearfix">
+    <ul class='tabs ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>
+        <li id="accountOverview" class="ui-state-default ui-tabs-active ui-state-active ui-corner-left"><a href="#" id="blah" class="ui-tabs-anchor">Account Overview</a></li>
+        <li id="accountCreation" class="ui-state-default ui-corner-left"><a class="ui-tabs-anchor">Account Creation</a></li>
+        <li id="accountManagement" class="ui-state-default ui-corner-left"><a class="ui-tabs-anchor">Account Management</a></li>
+        <li id="accountBets" class="ui-state-default ui-corner-left"><a class="ui-tabs-anchor">Account Bets</a></li>
+    </ul>
+    <div id="tabContent" class='form-body ui-tabs-panel ui-widget-content ui-corner-bottom'></div>
+</div>
+
+
+</div>

@@ -6,21 +6,21 @@ require.config({
     // Configuring libraries aliases (shortcuts)
     paths: {
         'jquery'                : 'vendor/jquery/dist/jquery',
-        'jqueryPubsub'          : 'vendor/jquery-pubsub/jquery.pubsub',
         'underscore'            : 'vendor/underscore/underscore',
         'backbone'              : 'vendor/backbone/backbone',
         'marionette'            : 'vendor/marionette/lib/backbone.marionette',
         'backbone.babysitter'   : 'vendor/backbone.babysitter/lib/backbone.babysitter',
         'backbone.wreqr'        : 'vendor/backbone.wreqr/lib/backbone.wreqr',
+        'jqueryui'             : 'vendor/jquery-ui.min',
         'backbone.command'      : 'common/framework/command/Backbone.Command',
         'modal'                 : 'vendor/backbone.modal',
-        'w2ui'                  : 'vendor/w2ui/w2ui-1.3',
+        'w2ui'                  : 'vendor/w2ui/w2ui-1.4.1',
         'text'                  : 'vendor/requirejs-text/text',
         'moment'                : 'vendor/moment/moment',
-        'di'                    : 'vendor/di',
+        'di'                    : 'vendor/di-lite/di-lite',
         'ctx'                   : 'app/core/ctx',
         'app'                   : 'app',
-        'underscore.string'     : 'vendor/underscore.string'
+        'underscore.string'     : 'vendor/underscore.string/lib/underscore.string'
     },
 
 
@@ -37,6 +37,7 @@ require.config({
         'underscore.string'     : { deps: ['underscore'] },
         'w2ui'                  : { deps: ['jquery'] },
         'jqueryPubsub'          : { deps: ['jquery'] },
+        'jqueryui'              : { deps: ['jquery'] },
         'moment'                : { exports : 'moment' }
     }
 });

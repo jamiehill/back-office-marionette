@@ -9,14 +9,13 @@ $mid-grey: #f0eef9;
 $yellow: #fed448;
 $background-grey: fade($mid-grey, 40%);
 $tab-grey: #bdbec0;
-$blue: #05438a;
+$blue: #2492d1;
 $dark: #2b303a;
 
 #agent {
   position: absolute;
-  top: $header-height; left: 0; bottom: $footer-height; right: 0px;
-  padding: 10px 0px;
-  margin-top: 11px;
+  top: $nav-height; left: 0; bottom: -1; right: 0px;
+  margin-top: 1px;
 
   ul#tabs {
     @include flat-dark();
@@ -30,6 +29,7 @@ $dark: #2b303a;
     border-right: solid 0px $dark;
 
     li {
+
       @include gradient(top, $light-grey, $mid-grey);
       padding: 10px 14px;
       border-right: 1px solid #c4bcd4;
@@ -70,4 +70,49 @@ $dark: #2b303a;
     padding: 10px;
 
   }
+}
+
+.agentContent {
+
+  color: $dark-grey!important;
+
+  h2 {
+    font-size: 24px;
+    color: $dark-grey;
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid $blue;
+  }
+
+  .content {
+    table {
+      border-collapse: collapse;
+
+      tr {
+        hieght: 50px;
+      }
+    }
+    caption { font-size: larger; margin: 1em auto; }
+    th, td {
+      padding: 8px;
+    }
+    thead {
+      background: $light-grey;
+          color: #000;
+      //    border: 1px solid #cccccc;
+    }
+    th {
+      background: #f8f8f8;
+      border: 1px solid #cccccc;
+      font-weight: bold;
+    }
+    td {
+      border: 1px solid #777;
+    }
+
+
+  }
+
+
+
 }

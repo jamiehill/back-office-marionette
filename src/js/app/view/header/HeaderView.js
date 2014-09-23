@@ -31,6 +31,7 @@ define(['marionette'],
          */
         items: function(scope){
             return [
+                { type: 'spacer'},
                 { type: 'button',  id: 'loginModal', caption: 'Login',    hint: 'Login' },
                 { type: 'button',  id: 'searchPunters', caption: 'Search Punters', hint: 'Search Punters',hidden:false },
                 { type: 'button',  id: 'translations', caption: 'Translations', hint: 'Translations',hidden:false }

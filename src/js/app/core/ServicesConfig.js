@@ -1,9 +1,12 @@
 define([
     'common/bootstrap/core/DeferredBase','ctx',
     'common/command/api/LoginCommand',
-    'common/command/api/LogoutCommand'
+    'common/command/api/LogoutCommand',
+    'common/command/api/GetChildAccountsCommand',
+    'common/command/api/CreateChildAccountCommand',
+    'common/command/api/CheckAccountAvailabilityCommand'
 ],
-function (DeferredBase, ctx, Login, Logout) {
+function (DeferredBase, ctx, Login, Logout, GetChildAccountsCommand, CreateChildAccountCommand, CheckAccountAvailabilityCommand) {
     return DeferredBase.extend({
         name: 'ServicesConfig',
 
@@ -17,6 +20,10 @@ function (DeferredBase, ctx, Login, Logout) {
             this.app.commands.setHandler("command:login", Login);
             this.app.commands.setHandler("command:logout", Logout);
             this.app.commands.setHandler("command:recoverlogin", Logout);
+
+            this.app.commands.setHandler("command:getChildAccounts", GetChildAccountsCommand);
+            this.app.commands.setHandler("command:createChildAccount", CreateChildAccountCommand);
+            this.app.commands.setHandler("command:checkAccountAvailability", CheckAccountAvailabilityCommand);
 
             this.success();
         }

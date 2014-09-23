@@ -1,7 +1,7 @@
 define(['marionette', 'ctx', 'text!app/view/search/SearchView.tpl.html'],
 function (Marionette, ctx, tpl) {
 
-    return Marionette.Layout.extend({
+    return Marionette.LayoutView.extend({
 
 
         id: 'tabsWrapper',

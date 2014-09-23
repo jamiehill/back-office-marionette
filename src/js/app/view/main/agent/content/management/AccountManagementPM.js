@@ -12,7 +12,7 @@ define([
              *
              */
             initialize: function(options){
-                thismodel = options.model;
+//                thismodel = options.model;
             }
         });
     });

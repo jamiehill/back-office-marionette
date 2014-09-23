@@ -215,6 +215,49 @@ define(function (require) {
                 args: [
                     { sessionToken: { attr: 'sessionToken' }}
                 ]
+            },
+
+
+            // agent api
+            getChildAccounts: {
+                args: [
+                    'accountId',
+                    { sessionToken: { attr: 'sessionToken' }}
+                ]
+            },
+
+            checkAccountAvailability: {
+                args: [
+                    'accountref',
+                    { sessionToken: { attr: 'sessionToken' }}
+                ]
+            },
+
+            createChildAccount: {
+                args: [
+                    { username: '' },
+                    { password: '' },
+                    { firstname: '' },
+                    { lastname: '' },
+                    { phone: '' },
+                    { email: '' },
+                    { product: '' },
+                    { minstake: '' },
+                    { betlimit: '' },
+                    { pt: '' },
+                    { vc: '' },
+                    { currency: '' },
+                    { balance: '' },
+                    { accountref: '' },
+                    { sessionToken: { attr: 'sessionToken' }}
+                ]
+            },
+
+            uploadChildAccountsCSV: {
+                args: [
+                    { base64Csv: '' },
+                    { sessionToken: { attr: 'sessionToken' }}
+                ]
             }
         }
     });

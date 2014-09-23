@@ -21,7 +21,7 @@ require.config({
         'backbone.wreqr'        : 'vendor/backbone.wreqr/lib/backbone.wreqr',
         'backbone.command'      : 'common/framework/command/Backbone.Command',
         'modal'                 : 'vendor/backbone.modal',
-        'w2ui'                  : 'vendor/w2ui/w2ui-1.3',
+        'w2ui'                  : 'vendor/w2ui/w2ui-1.4.1',
         'text'                  : 'vendor/requirejs-text/text',
         'moment'                : 'vendor/moment/moment',
         'di'                    : 'vendor/di',

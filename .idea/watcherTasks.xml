@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectTasksOptions">
-    <TaskOptions isEnabled="false">
+    <TaskOptions isEnabled="true">
       <option name="arguments" value="--no-cache --update $FileName$:$FileNameWithoutExtension$.css" />
       <option name="checkSyntaxErrors" value="false" />
       <option name="description" value="Compiles .scss files into .css files" />
@@ -15,7 +15,7 @@
       </option>
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
-      <option name="program" value="$USER_HOME$/.rvm/gems/ruby-2.0.0-p247/bin/scss" />
+      <option name="program" value="/usr/bin/scss" />
       <option name="scopeName" value="K8-Styles" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$FileDir$" />
@@ -55,8 +55,8 @@
       </option>
       <option name="outputFromStdout" value="false" />
       <option name="passParentEnvs" value="true" />
-      <option name="program" value="$USER_HOME$/.rvm/gems/ruby-2.0.0-p247/bin/scss" />
-      <option name="scopeName" value="Project Files" />
+      <option name="program" value="/usr/bin/scss" />
+      <option name="scopeName" value="K8-Styles" />
       <option name="trackOnlyRoot" value="true" />
       <option name="workingDir" value="$FileDir$" />
       <envs />

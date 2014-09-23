@@ -4,21 +4,28 @@ define([
 ],
 function (Marionette, tpl) {
     return Marionette.ItemView.extend({
+        dependencies: 'agentModel, apiService, commands',
 
-        dependencies: 'pm=accountManagementPM',
+
+        id: 'tab3',
+        className: 'form-body ui-tabs-panel ui-widget-content ui-corner-bottom',
         template: _.template(tpl),
         tagName: "li",
-        selectedIndex: 0,
-        events: {
 
+
+        /**
+         *
+         */
+        initialize: function() {
+            this.listenTo(this.model, 'change:accounts', this.onModelChange);
         },
 
 
         /**
          *
          */
-        ready: function() {
-            _.extend(this.pm.options, this.options);
+        onModelChange: function(){
+            this.render();
         }
     });
 });

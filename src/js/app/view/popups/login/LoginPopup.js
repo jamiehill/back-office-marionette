@@ -59,6 +59,7 @@ function (Backbone, Modal, ctx, Login, tpl) {
         clear: function(e){
             $('input[name=username]').val('');
             $('input[name=password]').val('');
+            $('#feedback').html('');
             setTimeout(function(){
                 $('input[name=username]').focus();
             }, 50);
@@ -82,7 +83,7 @@ function (Backbone, Modal, ctx, Login, tpl) {
          */
         loginFailure: function(jqXHR, textStatus, errorThrown){
             var args = arguments;
-            var error = args.Error.value,
+            var error = args[0].Error.value,
                 feedback = $(this.el).find('#feedback');
             feedback.html(error);
         }

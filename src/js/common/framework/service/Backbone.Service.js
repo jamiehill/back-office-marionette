@@ -78,7 +78,7 @@ function(_, Backbone) {
                 var target = { request: request, method: "get", args:[] };
 
                 // if is string, the options should only be a method type such as 'POST'
-                if (_.isString(options) && !_.blank(options))
+                if (_.isString(options) && !_.isUndefined(options))
                     target.method = options.toUpperCase();
 
                 // if is an array, assumed to be an array of required arguments names

@@ -97,7 +97,8 @@ define(['marionette', 'ctx', 'app/view/popups/login/LoginPopup'],
          */
         items: function(scope){
             return [
-                { type: 'html',  id: 'logo', caption: '',html: '<img src="./img/amelco_sm.png" style="padding-left: 5px; padding-top: 3px"></img>' },
+                { type: 'html',    id: 'logo', caption: '', html: '<img id="appLogo" src="./img/logo-sml.gif"></img>' },
+                { type: 'spacer' },
                 { type: 'button',  id: 'login', caption: 'Login', hint: 'Login', hidden:!this.loggedOut },
                 { type: 'button',  id: 'logout', caption: 'Logout', hint: 'Logout', hidden:this.loggedOut },
                 { type: 'button',  id: 'searchPunters', caption: 'Search Punters', hint: 'Search Punters', hidden:this.loggedOut },

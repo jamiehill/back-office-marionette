@@ -1,16 +1,39 @@
-define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/nav/NavBarView', 'app/view/header/HeaderView', 'app/view/search/SearchView', 'app/view/footer/FooterView', 'app/view/main/markets/MarketDetailsView'],
+define([
+        'marionette', 'ctx',
+        'text!app/view/AppView.tpl.html',
+        'app/view/main/agent/content/AccountBets',
+        'app/view/main/agent/content/AccountCreation',
+        'app/view/main/agent/content/AccountManagement',
+        'app/view/main/agent/content/AccountOverview'
+    ],
 
-    function (Marionette, ctx, tpl, NavBarView, HeaderView, SearchView, FooterView, MarketDetailsView) {
-    return Marionette.Layout.extend({
+function (Marionette, ctx, tpl, AccountBets, AccountCreation, AccountManagement, AccountOverview) {
+    return Marionette.LayoutView.extend({
 
 
         template: _.template(tpl),
+        defaultView: 'accountOverview',
         regions: {
-            "navRegion": "#nav",
-            "headerRegion": "#header",
-            "contentRegion": "#main",
-            "searchRegion": "#search",
-            "footerRegion": "#footer"
+            "navRegion": ".nav-global",
+            "contentRegion": "#tabContent"
+        },
+
+
+        events: {
+            'click #loginBtn' : 'onLogin',
+            'click #accountOverview' : 'onTabClick',
+            'click #accountManagement' : 'onTabClick',
+            'click #accountCreation' : 'onTabClick',
+            'click #accountBets' : 'onTabClick'
+        },
+
+
+        /**
+         *
+         */
+        initialize: function(){
+            _.bindAll(this, 'onTabClick');
+            this.modalEl = $('body').find('#modals');
         },
 
 
@@ -18,10 +41,28 @@ define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/nav/Nav
          * Main initialisation
          */
         onShow: function() {
-            this.navRegion.show(ctx.get("navBarView"));
-            this.headerRegion.show(new HeaderView());
+//            this.navRegion.show(ctx.get("navBarView"));
             this.contentRegion.show(this.getView());
-            this.footerRegion.show(new FooterView());
+        },
+
+
+        onLogin: function() {
+            var popup = ctx.get('loginPopup');
+            $(this.modalEl).html(popup.render().el);
+        },
+
+
+        /**
+         * @param event
+         */
+        onTabClick: function(event) {
+            var view = $(event.currentTarget).attr('id');
+            this.contentRegion.show(ctx.get(view));
+
+            this.currentTab.removeClass('ui-tabs-active ui-state-active');
+            this.currentTab = $('#'+view);
+
+            this.currentTab.addClass('ui-tabs-active ui-state-active');
         },
 
 
@@ -30,7 +71,8 @@ define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/nav/Nav
          * @returns {*|MarketDetailsView}
          */
         getView: function(){
-            return ctx.get("agentView");
+            this.currentTab = $('#'+this.defaultView);
+            return ctx.get(this.defaultView);
         }
     });
 });

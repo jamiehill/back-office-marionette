@@ -1,59 +1,72 @@
-<section class="management">
-
-    <header><h2 class="team">Account Management<span class="icon-edit cog"></span></h2></header>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Account ID</th>
-                <th>Username</th>
-                <th>Login Name</th>
-                <th>Status</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Last Login</th>
-                <th>IP</th>
-                <th>Currency</th>
-                <th>PT</th>
-                <th>VC</th>
-                <th>Bet Limit</th>
-                <th>Min Stake</th>
-                <th>Balance</th>
-            </tr>
-        </thead>
-        <tbody>
-
-            <% _.each(rows, function(row, index) { %>
-            <tr>
-                <th><%row.accountId%></th>
-                <th><%row.username%></th>
-                <th><%row.login%></th>
-                <th><%row.status%></th>
-                <th><%row.firstName%></th>
-                <th><%row.lastName%></th>
-                <th><%row.phone%></th>
-                <th><%row.email%></th>
-                <th><%row.lastLogin%></th>
-                <th><%row.ip%></th>
-                <th><%row.currency%></th>
-                <th><%row.pt%></th>
-                <th><%row.vc%></th>
-                <th><%row.betLimit%></th>
-                <th><%row.minStake%></th>
-                <th><%row.balance%></th>
-            </tr>
-            <% }); %>
-
-        </tbody>
-    </table>
-
-</section>
-
-
-
-
-
-
-
+<div class="table table-style ">
+    <div class="table-row th management">
+        <div class="table-cell cell-style ">
+            Account_Id
+        </div>
+        <div class="table-cell cell-style">
+            Username
+        </div>
+        <div class="table-cell cell-style">
+            Status
+        </div>
+        <div class="table-cell cell-style">
+            First Name
+        </div>
+        <div class="table-cell cell-style">
+            Last Name
+        </div>
+        <div class="table-cell cell-style">
+            Phone
+        </div>
+        <div class="table-cell cell-style">
+            Email
+        </div>
+        <div class="table-cell cell-style">
+            Last Login
+        </div>
+        <div class="table-cell cell-style">
+            IP
+        </div>
+        <div class="table-cell cell-style">
+            Currency
+        </div>
+        <div class="table-cell cell-style">
+            PT
+        </div>
+        <div class="table-cell cell-style">
+            VC
+        </div>
+        <div class="table-cell cell-style">
+            Bet Limit
+        </div>
+        <div class="table-cell cell-style">
+            Min Stake
+        </div>
+        <div class="table-cell cell-style">
+            Balance
+        </div>
+        <div class="table-cell cell-style">
+            &nbsp;
+        </div>
+    </div>
+    <% _.each(accounts, function(account, index) { %>
+        <div class="table-row management">
+            <div class="table-cell cell-style "><%=account.externalRef%></div>
+            <div class="table-cell cell-style "><%=account.name%></div>
+            <div class="table-cell cell-style "><%=account.status%></div>
+            <div class="table-cell cell-style "><%=account.firstName%></div>
+            <div class="table-cell cell-style "><%=account.lastName%></div>
+            <div class="table-cell cell-style "><%=account.phone%></div>
+            <div class="table-cell cell-style "><%=account.email%></div>
+            <div class="table-cell cell-style "><%=account.lastLogin%></div>
+            <div class="table-cell cell-style "><%=account.ip%></div>
+            <div class="table-cell cell-style "><%=_.has(account, 'balance') ? account.balance.currency : 'GBP'%></div>
+            <div class="table-cell cell-style "><%=account.pt%></div>
+            <div class="table-cell cell-style "><%=account.defaultSinglesVC%></div>
+            <div class="table-cell cell-style "><%=account.betLimit%></div>
+            <div class="table-cell cell-style "><%=account.minStake%></div>
+            <div class="table-cell cell-style "><%=_.has(account, 'balance') ? account.balance.value : '0'%></div>
+            <div class="table-cell cell-style edit"><a href=""><i class="fa fa-pencil"></i></a></div>
+        </div>
+    <% }); %>
+</div>

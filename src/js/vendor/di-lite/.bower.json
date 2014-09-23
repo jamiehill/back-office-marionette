@@ -1,0 +1,15 @@
+{
+  "name": "di-lite",
+  "homepage": "https://github.com/NickQiZhu/di.js",
+  "version": "0.3.3",
+  "_release": "0.3.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.3.3",
+    "commit": "af813c8606b1e0102733cf969718c96390cf64eb"
+  },
+  "_source": "git://github.com/NickQiZhu/di.js.git",
+  "_target": "~0.3.3",
+  "_originalSource": "di-lite",
+  "_direct": true
+}

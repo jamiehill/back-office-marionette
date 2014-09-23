@@ -16,13 +16,16 @@ function (Marionette, Backbone, ctx, TabbedView, AccountBets, AccountCreation, A
     var tabTemplate = "<li class='<%= selected %>'><a href='#' data-id='<%= id %>' class='tab'><%= tabName %></a></li>";
 
     return Marionette.CompositeView.extend({
+        dependencies: 'pm=agentViewPM, model=agentModel',
+
 
         id: 'agent',
         template: _.template(tpl),
         tabViewContainer: '#tabs',
-        itemViewContainer: '#tab-content',
+        childViewContainer: '#tab-content',
         tabAttrib: 'name',
-        selectedIndex: 2,
+        selectedIndex: 0,
+        selections: null,
         events: {
             'click .tab': 'onTabClick'
         },
@@ -31,9 +34,10 @@ function (Marionette, Backbone, ctx, TabbedView, AccountBets, AccountCreation, A
         /**
          * @param options
          */
-        initialize: function(options){
+        ready: function(options){
             _.bindAll(this, 'addChild');
-            this.collection = this.getSections();
+            this.collection = this.model.getSections();
+            this.render();
         },
 
 
@@ -49,81 +53,51 @@ function (Marionette, Backbone, ctx, TabbedView, AccountBets, AccountCreation, A
         },
 
 
-        // Build an `itemView` for every model in the collection.
-        buildItemView: function(item, ItemViewType, itemViewOptions){
-            var options = _.extend({model: item}, itemViewOptions);
-            return new ItemViewType(options);
-        },
-
+        /**
+         * @param child
+         * @param ChildViewClass
+         * @param childViewOptions
+         * @returns {ChildViewClass}
+         */
+        buildChildView: function(child, ChildViewClass, childViewOptions) {
+            var options = _.extend({model: child}, childViewOptions),
+                clazz   = child.get('clazz');
+            return ctx.get(clazz);
+        }
 
 
         /**
          *
          */
-        onRender: function(){
-            if (_.isUndefined(this.collection)) return;
-            this.initTabs();
-        },
+//        onRender: function(){
+//            if (_.isUndefined(this.collection)) return;
+//            this.initTabs();
+//        },
 
 
         /**
          * @param e
          */
-        onTabClick: function(e){
-            e.preventDefault();
-            this.selectedIndex = $(e.target).data('id');
-            this.initTabs();
-        },
+//        onTabClick: function(e){
+//            e.preventDefault();
+//            this.selectedIndex = $(e.target).data('id');
+//            this.render();
+//        },
 
 
-        /**
-         * @param options
-         */
-        initTabs: function(){
-            var tabName, selected, tabsHtml = '';
-            _.each(this.collection.models, function (m, index) {
-                tabName     = m.get('title');
-                selected    = this.selectedIndex == index ? 'selected' : '';
-                tabsHtml   += _.template(tabTemplate, {tabName: tabName, id: index, selected: selected});
-            }, this);
-
-            this.tabs = $(this.el).find(this.tabViewContainer);
-            $(this.tabs).html(tabsHtml);
-        },
-
-
-        /**
-         * @param item
-         * @returns {*}
-         */
-        getItemView: function(item) {
-            var clazz = AccountOverview;
-            switch(item.get('name')) {
-                case 'BETS' :
-                    clazz = AccountBets;
-                    break
-                case 'CREATION' :
-                    clazz = AccountCreation;
-                    break;
-                case 'MANAGEMENT' :
-                    clazz = AccountManagement;
-                    break;
-            }
-            return clazz;
-        },
-
-
-        /**
-         *
-         */
-        getSections: function() {
-            var sections = [
-                new Backbone.Model({name: 'OVERVIEW', title: 'Account Overview'}),
-                new Backbone.Model({name: 'CREATION', title: 'Account Creation'}),
-                new Management({name: 'MANAGEMENT', title: 'Account Management'}),
-                new Backbone.Model({name: 'BETS', title: 'Account Bets'})
-            ];
-            return new Backbone.Collection(sections);
-        }
+//        /**
+//         * @param options
+//         */
+//        initTabs: function(){
+//            var tabName, selected, tabsHtml = '';
+//            _.each(this.collection.models, function (m, index) {
+//                tabName     = m.get('title');
+//                selected    = this.selectedIndex == index ? 'selected' : '';
+//                tabsHtml   += _.template(tabTemplate, {tabName: tabName, id: index, selected: selected});
+//            }, this);
+//
+//            this.tabs = $(this.el).find(this.tabViewContainer);
+//            $(this.tabs).html(tabsHtml);
+//        }
     });
 });

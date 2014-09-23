@@ -1,15 +1,15 @@
-define(['jquery', 'underscore', 'underscore.string', 'backbone', 'marionette', 'moment', 'w2ui', 'modal', 'app/core/Bootstrap', 'app/view/AppView'],
-function($, _, string, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, AppView) {
+define(['jquery', 'underscore', 'underscore.string', 'backbone', 'marionette', 'ctx', 'moment', 'w2ui', 'jqueryui', 'modal', 'app/core/Bootstrap', 'app/view/AppView'],
+function($, _, string, Backbone, Marionette, ctx, moment, w2ui, jqueryui, Modal, Bootstrap, AppView) {
 
     // Main application
-    var core = new Marionette.Application();
+    var core = new Marionette.Application()
 
 
     // Core definitions
 
 
     // Required bootstrapping to be added here
-    core.on("initialize:before", function (options) {
+    core.on("before:start", function (options) {
         core.vent.trigger('app:log', 'App: Initializing');
         core.bootStart = moment();
 
@@ -17,12 +17,13 @@ function($, _, string, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, App
         var bootstrap = new Bootstrap({app: core});
             bootstrap.deferred.done(function() {
             core.vent.trigger('app:start');
+            ctx.initialize();
         });
     });
 
 
     // Post startup steps such as auto log in etc.
-    core.on("initialize:after", function (options) {
+    core.on("start", function (options) {
         core.vent.trigger('app:log', 'App: Initialized');
     });
 
@@ -50,7 +51,7 @@ function($, _, string, Backbone, Marionette, moment, w2ui, Modal, Bootstrap, App
 
     // Set up the display region
     core.addRegions({
-        container: "#container"
+        container: ".wrapper-page"
     });
 
 

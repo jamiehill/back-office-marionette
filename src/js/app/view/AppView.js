@@ -21,7 +21,6 @@ define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/nav/Nav
             this.navRegion.show(ctx.get("navBarView"));
             this.headerRegion.show(new HeaderView());
             this.contentRegion.show(this.getView());
-            this.searchRegion.show(new SearchView());
             this.footerRegion.show(new FooterView());
         },
 
@@ -31,7 +30,7 @@ define(['marionette', 'ctx', 'text!app/view/AppView.tpl.html', 'app/view/nav/Nav
          * @returns {*|MarketDetailsView}
          */
         getView: function(){
-            return ctx.get("marketDetailsView");
+            return ctx.get("agentView");
         }
     });
 });

@@ -1,0 +1,35 @@
+$radius: 3px; // radius of tabs/content corners
+$border-colour: #cad8e7;
+$markets-width: 160px;
+
+$light-grey: #f9fafc;
+$mid-grey: #f0eef9;
+$yellow: #fed448;
+$background-grey: fade($mid-grey, 40%);
+$tab-grey: #bdbec0;
+$blue: #05438a;
+$dark: #2b303a;
+
+.management {
+
+  table {
+    border-collapse: collapse;
+  }
+  caption { font-size: larger; margin: 1em auto; }
+  th, td {
+    padding: 8px;
+  }
+  thead {
+    background: #f8f8f8;
+    color: #000;
+    border: 1px solid #cccccc;
+  }
+  th {
+    background: #f8f8f8;
+    color: #fff;
+    border: 1px solid #cccccc;
+  }
+  td {
+    border: 1px solid #777;
+  }
+}

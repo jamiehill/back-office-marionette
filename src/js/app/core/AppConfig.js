@@ -1,6 +1,7 @@
 define([
     'common/bootstrap/core/DeferredBase', 'ctx',
 
+    'app/view/main/agent/AgentView',
     'app/view/main/markets/MarketDetailsView',
     'app/view/nav/NavBarView',
     'app/view/search/simple/SimpleSearchView',
@@ -12,9 +13,13 @@ define([
     'app/model/EventCache',
     'app/model/SessionModel',
     'common/service/ApiService',
-    'common/service/SocketService'
+    'common/service/SocketService',
+
+    // agent
+    'app/view/main/agent/content/AccountManagement',
+    'app/view/main/agent/content/management/AccountManagementPM'
 ],
-function (DeferredBase, ctx, MarketDetailsView, NavBarView, SimpleSearchView, AdvancedSearchView, LoginPopup, EventDetailsModel, EventCache, SessionModel, ApiService, SocketService) {
+function (DeferredBase, ctx, AgentView, MarketDetailsView, NavBarView, SimpleSearchView, AdvancedSearchView, LoginPopup, EventDetailsModel, EventCache, SessionModel, ApiService, SocketService, AccountManagement, AccountManagementPM) {
     return DeferredBase.extend({
         name: 'AppConfig',
 
@@ -42,10 +47,16 @@ function (DeferredBase, ctx, MarketDetailsView, NavBarView, SimpleSearchView, Ad
             ctx.register("commands").object(this.app.commands);
 
             // Views
+            ctx.register('agentView', AgentView);
             ctx.register('marketDetailsView', MarketDetailsView);
             ctx.register('simpleSearchView', SimpleSearchView);
             ctx.register('navBarView', NavBarView);
             ctx.register('advancedSearchView', AdvancedSearchView);
+
+            // Agent
+            ctx.register('accountManagement', AccountManagement);
+            ctx.register('accountManagementPM', AccountManagementPM);
+
 
             // Popups
             ctx.register("loginPopup", LoginPopup).strategy(di.strategy.proto); // new instance each time

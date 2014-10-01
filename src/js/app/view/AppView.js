@@ -1,13 +1,9 @@
 define([
         'marionette', 'ctx',
-        'text!app/view/AppView.tpl.html',
-        'app/view/main/agent/content/AccountBets',
-        'app/view/main/agent/content/AccountCreation',
-        'app/view/main/agent/content/AccountManagement',
-        'app/view/main/agent/content/AccountOverview'
+        'text!app/view/AppView.tpl.html'
     ],
 
-function (Marionette, ctx, tpl, AccountBets, AccountCreation, AccountManagement, AccountOverview) {
+function (Marionette, ctx, tpl) {
     return Marionette.LayoutView.extend({
 
 

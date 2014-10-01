@@ -26,7 +26,7 @@ function (Marionette, tpl) {
          *
          */
         ready: function() {
-            _.bindAll(this, 'onFormSubmit');
+            _.bindAll(this, 'onFormSubmit', 'onFormClear');
         },
 
 
@@ -34,9 +34,9 @@ function (Marionette, tpl) {
          *
          */
         onRender: function() {
-            this.currentPass = $('input[name=currentPass]');
-            this.newPass = $('input[name=newPass]');
-            this.confirmPass = $('input[name=confirmPass]');
+            this.$currentPass = this.$el.find('input[name=currentPass]');
+            this.$newPass     = this.$el.find('input[name=newPass]');
+            this.$confirmPass = this.$el.find('input[name=confirmPass]');
         },
 
 
@@ -44,7 +44,11 @@ function (Marionette, tpl) {
          * @param options
          */
         onFormSubmit: function(e) {
-            var current = e;
+            var currentPass = this.$currentPass.val(),
+                newPass = this.$newPass.val(),
+                confirmPass =this.$confirmPass.val();
+
+            var
         },
 
 
@@ -52,9 +56,12 @@ function (Marionette, tpl) {
          * @param options
          */
         onFormClear: function(e) {
-            $(this.currentPass).value('');
-            $(this.newPass).value('');
-            $(this.confirmPass).value('');
+            $('input[name=currentPass]').val('');
+            $('input[name=newPass]').val('');
+            $('input[name=confirmPass]').val('');
+            setTimeout(function(){
+                $('input[name=currentPass]').focus();
+            }, 50);
         }
     });
 });

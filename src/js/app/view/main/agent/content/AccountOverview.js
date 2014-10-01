@@ -16,11 +16,45 @@ function (Marionette, tpl) {
         tagName: "li",
 
 
+        events: {
+            'click a[id=submit]' : 'onFormSubmit',
+            'click a[id=reset]' : 'onFormClear'
+        },
+
+
+        /**
+         *
+         */
+        ready: function() {
+            _.bindAll(this, 'onFormSubmit');
+        },
+
+
+        /**
+         *
+         */
+        onRender: function() {
+            this.currentPass = $('input[name=currentPass]');
+            this.newPass = $('input[name=newPass]');
+            this.confirmPass = $('input[name=confirmPass]');
+        },
+
+
         /**
          * @param options
          */
-//        ready: function(options) {
-//            this.model = this.agentModel.overview;
-//        }
+        onFormSubmit: function(e) {
+            var current = e;
+        },
+
+
+        /**
+         * @param options
+         */
+        onFormClear: function(e) {
+            $(this.currentPass).value('');
+            $(this.newPass).value('');
+            $(this.confirmPass).value('');
+        }
     });
 });

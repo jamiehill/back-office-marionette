@@ -67,17 +67,17 @@
     </div>
 </div>
 
-<form method="post" action="">
+<form id="passwordForm" method="post" action="">
     <div id="" class="overview form-section">
         <div class="form-body">
             <div class="form-row">
-                <label>Current Password</label><input name="password" type="password" />
+                <label>Current Password</label><input name="currentPass" type="password" required/>
             </div>
             <div class="form-row">
-                <label>New Password</label><input name="password" type="password" />
+                <label>New Password</label><input name="newPass" type="password" required/>
             </div>
             <div class="form-row">
-                <label>Confirm New Password</label><input name="password" type="password" />
+                <label>Confirm New Password</label><input name="confirmPass" type="password" required/>
             </div>
             <div class="form-row hide">
                 <div id="feedback"></div>
@@ -85,8 +85,8 @@
         </div>
 
         <div class="bottombar">
-            <a href="#" class="button clear">Reset</a>
-            <a href="#" class="button submit" type="submit">Update</a>
+            <a id="reset" class="button clear" type="reset">Reset</a>
+            <a id="submit" class="button submit" type="submit">Update</a>
         </div>
     </div>
 </form>

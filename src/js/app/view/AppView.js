@@ -21,10 +21,7 @@ function (Marionette, ctx, tpl, AccountBets, AccountCreation, AccountManagement,
 
         events: {
             'click #loginBtn' : 'onLogin',
-            'click #accountOverview' : 'onTabClick',
-            'click #accountManagement' : 'onTabClick',
-            'click #accountCreation' : 'onTabClick',
-            'click #accountBets' : 'onTabClick'
+            'click #tabs ul li a' : 'onTabClick'
         },
 
 
@@ -43,6 +40,10 @@ function (Marionette, ctx, tpl, AccountBets, AccountCreation, AccountManagement,
         onShow: function() {
 //            this.navRegion.show(ctx.get("navBarView"));
             this.contentRegion.show(this.getView());
+
+            // activate default tab
+            this.currentTab = $('#'+this.defaultView).closest('li');
+            this.currentTab.addClass('ui-tabs-active ui-state-active');
         },
 
 
@@ -60,7 +61,7 @@ function (Marionette, ctx, tpl, AccountBets, AccountCreation, AccountManagement,
             this.contentRegion.show(ctx.get(view));
 
             this.currentTab.removeClass('ui-tabs-active ui-state-active');
-            this.currentTab = $('#'+view);
+            this.currentTab = $('#'+view).closest('li');
 
             this.currentTab.addClass('ui-tabs-active ui-state-active');
         },

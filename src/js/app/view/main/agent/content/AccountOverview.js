@@ -7,7 +7,7 @@ define([
 ],
 function (Marionette, tpl) {
     return Marionette.ItemView.extend({
-        dependencies: 'agentModel',
+        dependencies: 'agentModel, vent',
 
 
         id: 'tab1',
@@ -44,11 +44,18 @@ function (Marionette, tpl) {
          * @param options
          */
         onFormSubmit: function(e) {
-            var currentPass = this.$currentPass.val(),
-                newPass = this.$newPass.val(),
-                confirmPass =this.$confirmPass.val();
+            // get the results of the validated form
+            var results = this.validate();
+            if (results.length > 0) {
+                this.vent.trigger('app:alert', results);
+                return;
+            }
 
-            var
+            // if validated hit the change password api
+            this.commands.execute('command:changePassword',
+                this.$currentPass.val(),
+                this.$newPass.val(),
+                this.$confirmPass.val())
         },
 
 
@@ -62,6 +69,31 @@ function (Marionette, tpl) {
             setTimeout(function(){
                 $('input[name=currentPass]').focus();
             }, 50);
-        }
+        },
+
+
+        /**
+         * @returns {*}
+         */
+        validate: function(){
+            var currentPass = this.$currentPass.val(),
+                newPass     = this.$newPass.val(),
+                confirmPass = this.$confirmPass.val();
+
+            var results = [];
+            if (_.isEmpty(currentPass)) results.push('You must provide your old password');
+            if (_.isEmpty(newPass))     results.push('You must provide a new password');
+            if (_.isEmpty(confirmPass)) results.push('You must confirm your new password');
+
+            // if somethings not been filled in, tell them so
+            if (_.size(results) > 0)
+                return results;
+
+            // If the new password doesn't match the confirmed password tell them so
+            if (newPass !== confirmPass)
+                return ["The new password doesn't match the confirmation password"];
+
+            return results;
+        },
     });
 });

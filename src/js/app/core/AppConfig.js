@@ -1,6 +1,7 @@
 define([
     'common/bootstrap/core/DeferredBase', 'ctx',
 
+    'app/view/main/components/alerts/AlertView',
     'app/view/main/agent/AgentView',
     'app/view/main/agent/AgentViewPM',
     'app/view/popups/login/LoginPopup',
@@ -18,7 +19,7 @@ define([
     'app/view/main/agent/content/AccountManagement',
     'app/view/main/agent/content/AccountOverview'
 ],
-function (DeferredBase, ctx, AgentView, AgentViewPM, LoginPopup, EventDetailsModel, AgentModel, EventCache, SessionModel, ApiService, SocketService, AccountBets, AccountCreation, AccountManagement, AccountOverview) {
+function (DeferredBase, ctx, AlertView, AgentView, AgentViewPM, LoginPopup, EventDetailsModel, AgentModel, EventCache, SessionModel, ApiService, SocketService, AccountBets, AccountCreation, AccountManagement, AccountOverview) {
     return DeferredBase.extend({
         name: 'AppConfig',
 
@@ -58,6 +59,8 @@ function (DeferredBase, ctx, AgentView, AgentViewPM, LoginPopup, EventDetailsMod
             // Views
             ctx.register('agentView', AgentView);
             ctx.register('agentViewPM', AgentViewPM);
+
+            ctx.register('alertView', AlertView);
 
             // Agent
 //            ctx.register('accountBets', AccountBets).strategy(di.strategy.proto);;

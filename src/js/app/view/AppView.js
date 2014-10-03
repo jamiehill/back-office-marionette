@@ -12,7 +12,7 @@ function (Marionette, ctx, tpl, AlertView) {
         defaultView: 'accountOverview',
         regions: {
             "navRegion": ".nav-global",
-            "alertRegion": ".alert-global",
+//            "alertRegion": ".alert-global",
             "contentRegion": "#tabContent"
         },
 
@@ -38,7 +38,7 @@ function (Marionette, ctx, tpl, AlertView) {
         onShow: function() {
 //            this.navRegion.show(ctx.get("navBarView"));
             this.contentRegion.show(this.getView());
-            this.alertRegion.show(new AlertView());
+            this.alertRegion.show(ctx.get('alertView'));
 
             // activate default tab
             this.currentTab = $('#'+this.defaultView).closest('li');

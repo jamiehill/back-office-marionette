@@ -4,9 +4,10 @@ define([
     'common/command/api/LogoutCommand',
     'common/command/api/GetChildAccountsCommand',
     'common/command/api/CreateChildAccountCommand',
-    'common/command/api/CheckAccountAvailabilityCommand'
+    'common/command/api/CheckAccountAvailabilityCommand',
+    'common/command/api/ChangePasswordCommand',
 ],
-function (DeferredBase, ctx, Login, Logout, GetChildAccountsCommand, CreateChildAccountCommand, CheckAccountAvailabilityCommand) {
+function (DeferredBase, ctx, Login, Logout, GetChildAccountsCommand, CreateChildAccountCommand, CheckAccountAvailabilityCommand, ChangePasswordCommand) {
     return DeferredBase.extend({
         name: 'ServicesConfig',
 
@@ -24,6 +25,8 @@ function (DeferredBase, ctx, Login, Logout, GetChildAccountsCommand, CreateChild
             this.app.commands.setHandler("command:getChildAccounts", GetChildAccountsCommand);
             this.app.commands.setHandler("command:createChildAccount", CreateChildAccountCommand);
             this.app.commands.setHandler("command:checkAccountAvailability", CheckAccountAvailabilityCommand);
+
+            this.app.commands.setHandler("command:changePassword", ChangePasswordCommand);
 
             this.success();
         }

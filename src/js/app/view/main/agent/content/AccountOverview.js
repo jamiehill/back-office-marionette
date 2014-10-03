@@ -55,7 +55,7 @@ function (Marionette, tpl) {
             this.commands.execute('command:changePassword',
                 this.$currentPass.val(),
                 this.$newPass.val(),
-                this.$confirmPass.val())
+                this.$confirmPass.val());
         },
 
 

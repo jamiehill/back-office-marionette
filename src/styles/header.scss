@@ -1,8 +1,0 @@
-#header {
-  @include flat-dark();
-  border-top: solid 1px #3e4349;
-
-  position: absolute;
-  top: $nav-height; left: 0px; right: 0px;
-  height: $header-height;
-}

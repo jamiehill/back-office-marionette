@@ -1,3 +1,24 @@
-#creationFeedback {
+.main-content {
+
+  float: right;
+
+//  background: #000088;
+
+  .alert-global {
+    background: #3880b6;
+    padding: 18px 24px;
+
+    // text
+    color: #FFFFFF;
+    font-weight: bold;
+
+    ul {
+
+      li {
+        line-height: 18px;
+      }
+    }
+  }
 
 }
+

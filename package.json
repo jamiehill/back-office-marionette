@@ -39,5 +39,8 @@
     "gulp-livereload": "^2.1.0",
     "gulp-connect": "^2.0.5",
     "gulp-sass": "^0.7.3"
+  },
+  "dependencies": {
+    "gulp-concat": "^2.4.1"
   }
 }

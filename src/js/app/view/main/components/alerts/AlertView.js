@@ -23,6 +23,11 @@ function (Marionette) {
         },
 
 
+        onShow: function() {
+
+        },
+
+
         /**
          *
          */

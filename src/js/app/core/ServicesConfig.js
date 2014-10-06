@@ -5,7 +5,7 @@ define([
     'common/command/api/GetChildAccountsCommand',
     'common/command/api/CreateChildAccountCommand',
     'common/command/api/CheckAccountAvailabilityCommand',
-    'common/command/api/ChangePasswordCommand',
+    'common/command/user/ChangePasswordCommand'
 ],
 function (DeferredBase, ctx, Login, Logout, GetChildAccountsCommand, CreateChildAccountCommand, CheckAccountAvailabilityCommand, ChangePasswordCommand) {
     return DeferredBase.extend({

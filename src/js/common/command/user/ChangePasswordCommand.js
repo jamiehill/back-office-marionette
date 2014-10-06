@@ -33,8 +33,6 @@ define(['backbone.command', 'ctx'], function (Command, ctx){
             if (_.has(resp, 'Error')){
 
             }
-        },
-
-
+        }
     });
 });

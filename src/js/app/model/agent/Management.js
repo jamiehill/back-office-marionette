@@ -2,14 +2,14 @@ define(['backbone', 'app/model/models/Instrument'],
 function (Backbone, Instrument) {
     return Backbone.Model.extend({
 
+        name: 'MANAGEMENT',
+        title: 'Account Management',
+        clazz: 'accountManagement',
 
         defaults: {
-            name: 'MANAGEMENT',
-            title: 'Account Management',
-            clazz: 'accountManagement',
-
             accountId: 'K8-01-101-1234',
             username: 'jhchill765',
+            password: '',
             login: 'jhchill666',
             status: 'Suspended',
             firstName: 'James',

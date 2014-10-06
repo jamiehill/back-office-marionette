@@ -258,6 +258,25 @@ define(function (require) {
                     { base64Csv: '' },
                     { sessionToken: { attr: 'sessionToken' }}
                 ]
+            },
+
+            //accountId=N&accountstatus=ACTIVE|SUSPENDED|CLOSED&password=X&firstname=X&lastname=X&phone=X&email=X&minstake=X&betlimit=X&pt=X&vc=X&balance=X
+
+            updateAccount: {
+                args: [
+                    'accountId',
+                    'accountstatus',
+                    'password',
+                    'firstname',
+                    'lastname',
+                    'phone',
+                    'email',
+                    'minstake',
+                    'betlimit',
+                    'pt',
+                    'vc',
+                    'balance'
+                ]
             }
         }
     });
